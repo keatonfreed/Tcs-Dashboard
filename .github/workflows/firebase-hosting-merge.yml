@@ -17,4 +17,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TCS_DASHBOARD_1E6F0 }}'
           channelId: live
-          projectId: tcs-dashboard-1e6f0
+          projectId: tcs-dash
