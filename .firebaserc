@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "tcs-dash"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
