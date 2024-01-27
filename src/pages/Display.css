@@ -1,0 +1,13 @@
+.DisplayTable>* {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.DisplayTable>*:nth-child(4n+1) {
+    border-left: none;
+}
