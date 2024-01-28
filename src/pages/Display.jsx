@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 import DisplayRow from 'src/components/DisplayRow'
 import uploadIcon from "src/content/uploadIcon.png"
 import searchIcon from "src/content/searchIcon.png"
-import './Display.css'
+import 'src/pages/Display.css'
 const firebaseConfig = {
     apiKey: "AIzaSyDeyXHjdlr8hyZn2oTS5Xkpdr1sXt6-4oc",
     authDomain: "tcs-dash.firebaseapp.com",
