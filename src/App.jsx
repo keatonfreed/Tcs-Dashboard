@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Admin from './pages/Admin';
-import Display from './pages/Display';
+import Admin from './Admin';
+import Display from './Display';
 
 function App() {
   return (
