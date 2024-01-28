@@ -1,7 +1,7 @@
 import React from 'react'
-import 'src/components/DisplayRow.css'
-import subtractIcon from "src/content/subtractIcon.png"
-import addIcon from "src/content/addIcon.png"
+import './components/DisplayRow.css'
+import subtractIcon from "./content/subtractIcon.png"
+import addIcon from "./content/addIcon.png"
 
 
 function DisplayRow({ id, student, setStudents }) {
