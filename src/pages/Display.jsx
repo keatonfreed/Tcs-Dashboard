@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 
-import DisplayRow from '../components/DisplayRow'
-import uploadIcon from "../content/uploadIcon.png"
-import searchIcon from "../content/searchIcon.png"
+import DisplayRow from 'src/components/DisplayRow'
+import uploadIcon from "src/content/uploadIcon.png"
+import searchIcon from "src/content/searchIcon.png"
 import './Display.css'
 const firebaseConfig = {
     apiKey: "AIzaSyDeyXHjdlr8hyZn2oTS5Xkpdr1sXt6-4oc",
