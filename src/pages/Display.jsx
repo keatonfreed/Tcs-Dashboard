@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from './firebase.js';
+import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
 
 import DisplayRow from '../components/DisplayRow'
 import uploadIcon from "../content/uploadIcon.png"
 import searchIcon from "../content/searchIcon.png"
 import './Display.css'
+const firebaseConfig = {
+    apiKey: "AIzaSyDeyXHjdlr8hyZn2oTS5Xkpdr1sXt6-4oc",
+    authDomain: "tcs-dash.firebaseapp.com",
+    projectId: "tcs-dash",
+    storageBucket: "tcs-dash.appspot.com",
+    messagingSenderId: "923783575401",
+    appId: "1:923783575401:web:bd70813743dfada1e62ff8"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 
 const SchoolName = "Walnut Creek"
 
