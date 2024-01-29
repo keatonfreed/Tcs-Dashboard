@@ -2,6 +2,27 @@
     position: relative;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+/*
+::-webkit-scrollbar-track {
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: green;
+} */
+
+.inactiveHide {
+    display: none !important;
+}
+
 /* .headerIcon:focus:not(:active) {
     outline: 5px solid var(--secondary-color);
     border-radius: 10px;

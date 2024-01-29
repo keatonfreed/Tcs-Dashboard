@@ -9,11 +9,11 @@
     font-size: 1.2em;
 }
 
-.DisplayRowItem:has(button) {
+.DisplayRowItem:has(.changeTokenButton) {
     justify-content: space-evenly;
 }
 
-.DisplayRowItem:not(:has(input)) *:not(button) {
+.DisplayRowItem:not(:has(input)) *:not(.changeTokenButton) {
     min-width: fit-content;
     width: 20%;
     text-align: center;
@@ -33,18 +33,30 @@
     box-shadow: inset 0px 0px 5px var(--primary-color);
 }
 
+.DisplayRowItem:has(.adjustMenuButton) {
+    position: relative;
+}
+
 .DisplayRowItem button {
     user-select: none;
-    color: var(--primary-color);
-    font-weight: bold;
-    border-radius: 50%;
-    outline: 3px solid black;
     aspect-ratio: 1;
     height: 55%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.DisplayRowItem .adjustMenuButton {
+    position: absolute;
+    left: 0;
+}
+
+.DisplayRowItem .changeTokenButton {
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 50%;
+    outline: 3px solid black;
 }
 
 /* .DisplayRowItem button:focus {

@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
+import React, { useState, useEffect, useRef } from 'react'
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from 'src/firebase'
+import AdjustMenu from 'src/components/AdjustMenu'
+
 
 import DisplayRow from 'src/components/DisplayRow'
 import uploadIcon from "src/content/uploadIcon.png"
 import searchIcon from "src/content/searchIcon.png"
 import 'src/pages/Display.css'
-const firebaseConfig = {
-    apiKey: "AIzaSyDeyXHjdlr8hyZn2oTS5Xkpdr1sXt6-4oc",
-    authDomain: "tcs-dash.firebaseapp.com",
-    projectId: "tcs-dash",
-    storageBucket: "tcs-dash.appspot.com",
-    messagingSenderId: "923783575401",
-    appId: "1:923783575401:web:bd70813743dfada1e62ff8"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 
 const SchoolName = "Walnut Creek"
 
@@ -101,9 +91,17 @@ function Display() {
 
     }
 
-    // let data = [{ name: "bob joe", tokens: 50, wanted: "cow", prev: "frog" }, { name: "josh 2", tokens: 150, wanted: "toad", prev: "pig" }, { name: "smith joe", tokens: 0, wanted: "dragon", prev: "egg" }]
+    let iteratedStudents = Object.entries(students).sort((a, b) => {
+        const nameA = a[1].name;
+        const nameB = b[1].name;
 
-    let iteratedStudents = Object.entries(students)
+        if (!nameA) return 1;
+        if (!nameB) return -1;
+
+        let sorted = nameA.localeCompare(nameB); // Alphabetical comparison
+        // }
+        return sorted
+    });
 
     useEffect(() => {
         setUpdatedData(!isDeepEqual(students, storedStudents))
@@ -122,36 +120,67 @@ function Display() {
         };
     }, [updatedData]);
 
-    // let updatedData = !isDeepEqual(students, storedStudents)
+    const [pageActive, setpageActive] = useState("");
 
-    // if (updatedData) {
-    //     window.addEventListener('beforeunload', beforeUnload);
-    //     // window.onbeforeunload = function () {
-    //     //     return "Are you sure you want to navigate away test?";
-    //     // }
-    // } else {
-    //     window.removeEventListener('beforeunload', beforeUnload);
-    //     // window.onbeforeunload = function () {
-    //     //     return "";
-    //     // }
-    // }
+    useEffect(() => {
+        const handleBlur = () => {
+            setpageActive("inactiveHide");
+        };
+
+        const handleFocus = () => {
+            setpageActive("");
+        };
+
+        window.addEventListener('blur', handleBlur);
+        window.addEventListener('focus', handleFocus);
+
+        return () => {
+            window.removeEventListener('blur', handleBlur);
+            window.removeEventListener('focus', handleFocus);
+        };
+    }, []);
+
+    function updateStudent(studentId, newData) {
+        if (!studentId) studentId = Math.random().toString().substring(3, 8)
+        setStudents((old) => {
+            let out = { ...old }
+            out[studentId] = newData
+            return out
+        })
+    }
+
+    const adjustMenuRef = useRef(null)
+
+    const handleDelete = () => console.log("delete");
+    const handleEdit = (day) => console.log("edit day:", day);
 
     return (
         <div className='flex flex-col h-full'>
-            <header className='DisplayHeader w-full h-14 bg-primary text-gray-200 font-extrabold text-2xl flex flex-row'>
-                <button onClick={() => { searchStudents() }} className='headerIcon'><img src={searchIcon} alt="search" /></button>
+            <header className='DisplayHeader w-full h-14 min-h-14 bg-primary text-gray-200 font-extrabold text-2xl flex flex-row'>
+                <button onClick={() => { searchStudents() }} className={`headerIcon ${pageActive}`}><img src={searchIcon} alt="search" /></button>
                 <div className='h-full border-b border-black w-1/4 text-center flex items-center justify-center'>Name</div>
                 <div className='h-full border-b border-l border-black w-1/4 text-center flex items-center justify-center'>Tokens</div>
                 <div className='h-full border-b border-l border-black w-1/4 text-center flex items-center justify-center'>Print Wanted</div>
                 <div className='h-full border-b border-l border-black w-1/4 text-center flex items-center justify-center'>Prev Prints</div>
-                <button disabled={updating} onClick={() => { if (!updatedData) return; updateStudents() }} className='headerIcon'>{updatedData ? <div className='headerIconDot'></div> : ""}<img src={uploadIcon} alt="upload" /></button>
+                <button disabled={updating} onClick={() => { if (!updatedData) return; updateStudents() }} className={`headerIcon ${pageActive}`}>{updatedData ? <div className='headerIconDot'></div> : ""}<img src={uploadIcon} alt="upload" /></button>
             </header>
-            <div className='DisplayTable grid grid-cols-4 w-full'>
-                {iteratedStudents.length ? iteratedStudents.map(([id, student]) => {
-                    return (<DisplayRow key={id} id={id} student={student} setStudents={setStudents} ></DisplayRow>)
-                }) : <h1 className='text-center w-screen mt-2 text-2xl'>No Students</h1>}
-                {/* {JSON.stringify(students)} */}
+            <div>
+                <div className='DisplayTable grid grid-cols-4 w-full '>
+                    {iteratedStudents.length ? iteratedStudents.map(([studentId, student]) => {
+                        return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef}></DisplayRow>)
+                    }) : <h1 className='text-center w-screen mt-2 text-2xl'>No Students</h1>}
+                    {/* {JSON.stringify(students)} */}
+                </div>
             </div>
+            <button className={`fixed right-4 bottom-4 p-3 px-8 mt-2 bg-primary rounded-md text-white font-bold text-2xl active:brightness-90 select-none ${pageActive}`} onClick={() => {
+                const newStudentId = Math.random().toString().substring(3, 8);
+                updateStudent(newStudentId, { name: "", tokens: 0, wanted: "", prev: "" });
+            }}>Add</button>
+            <AdjustMenu
+                adjustMenuRef={adjustMenuRef}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+            />
         </div>
     )
 }
