@@ -1,0 +1,10 @@
+.adjustSelect {
+    background-color: rgba(255, 255, 255, 10%);
+    padding: 0.25rem;
+    border-radius: 0.75rem;
+    user-select: none;
+}
+
+.adjustSelected {
+    background-color: rgba(255, 255, 255, 30%);
+}

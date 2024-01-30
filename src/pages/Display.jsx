@@ -37,8 +37,9 @@ function Display() {
     const [storedStudents, setStoredStudents] = useState({});
     const [updatedData, setUpdatedData] = useState(false);
     const [students, setStudents] = useState({});
-
     const [updating, setUpdating] = useState(false);
+
+    const [studentSearch, setStudentSearch] = useState("");
 
     const fetchStudents = async () => {
         setUpdating(true)
@@ -87,21 +88,45 @@ function Display() {
         fetchStudents();
     }, [])
 
-    function searchStudents() {
 
-    }
+    const [sortedStudents, setSortedStudents] = useState([]);
+    useEffect(() => {
+        let filtered = Object.entries(students).filter(([, student]) => {
+            const today = new Date().getDay();
+            const options = { weekday: "long" };
+            const todayDay = new Intl.DateTimeFormat("en-US", options).format(today);
 
-    let iteratedStudents = Object.entries(students).sort((a, b) => {
-        const nameA = a[1].name;
-        const nameB = b[1].name;
+            if (student?.schedule && student.schedule !== todayDay) return false
 
-        if (!nameA) return 1;
-        if (!nameB) return -1;
+            let studentName = student?.name?.toLowerCase()
+            if (studentSearch) {
+                if (!studentName) return false
+                // console.log("has", studentName, studentSearch, studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName))
+                return studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName)
+            } else {
+                return true
+            }
+        })
+        console.log("filtered")
+        let sorted = filtered.sort((a, b) => {
+            // const today = new Date().getDay();
+            // const options = { weekday: "long" };
+            // const todayDay = new Intl.DateTimeFormat("en-US", options).format(today);
 
-        let sorted = nameA.localeCompare(nameB); // Alphabetical comparison
-        // }
-        return sorted
-    });
+            // const scheduleA = a[1].schedule;
+            // const scheduleB = b[1].schedule;
+
+            const nameA = a[1].name;
+            const nameB = b[1].name;
+
+            if (!nameA) return 1;
+            if (!nameB) return -1;
+
+            return nameA.localeCompare(nameB); // Alphabetical comparison
+        });
+        setSortedStudents(sorted);
+    }, [students, studentSearch, setSortedStudents])
+
 
     useEffect(() => {
         setUpdatedData(!isDeepEqual(students, storedStudents))
@@ -145,29 +170,38 @@ function Display() {
         setStudents((old) => {
             let out = { ...old }
             out[studentId] = newData
+            if (!newData) {
+                delete out[studentId]
+            }
             return out
         })
     }
 
+
+    const [adjustStudentId, setAdjustStudentId] = useState();
     const adjustMenuRef = useRef(null)
 
-    const handleDelete = () => console.log("delete");
-    const handleEdit = (day) => console.log("edit day:", day);
+    const deleteStudent = () => { updateStudent(adjustStudentId, null) };
+    const changeSchedule = (day) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: day }) };
+
+    const [searchOpen, setSearchOpen] = useState(false)
 
     return (
         <div className='flex flex-col h-full'>
-            <header className='DisplayHeader w-full h-14 min-h-14 bg-primary text-gray-200 font-extrabold text-2xl flex flex-row'>
-                <button onClick={() => { searchStudents() }} className={`headerIcon ${pageActive}`}><img src={searchIcon} alt="search" /></button>
-                <div className='h-full border-b border-black w-1/4 text-center flex items-center justify-center'>Name</div>
-                <div className='h-full border-b border-l border-black w-1/4 text-center flex items-center justify-center'>Tokens</div>
-                <div className='h-full border-b border-l border-black w-1/4 text-center flex items-center justify-center'>Print Wanted</div>
-                <div className='h-full border-b border-l border-black w-1/4 text-center flex items-center justify-center'>Prev Prints</div>
+            <header className='DisplayHeader fixed w-full z-10 h-14 min-h-14 bg-primary drop-shadow-[0_3px_5px_rgba(0,0,0,0.4)] text-gray-200 font-extrabold text-2xl flex flex-row'>
+                <button onClick={() => { setSearchOpen((old) => !old) }} className={`headerIcon ${pageActive} select-none`} ><img draggable="false" src={searchIcon} alt="search" /></button>
+                {!searchOpen ? (<div className='DisplayHeaderItem'>Name</div>) : (
+                    <div className='DisplayHeaderItem'><input type="text" onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setStudentSearch("") } }} placeholder='Search Here' value={studentSearch} onChange={(e) => setStudentSearch(e.target.value)} /></div>
+                )}
+                <div className='DisplayHeaderItem'>Tokens</div>
+                <div className='DisplayHeaderItem'>Print Wanted</div>
+                <div className='DisplayHeaderItem'>Prev Prints</div>
                 <button disabled={updating} onClick={() => { if (!updatedData) return; updateStudents() }} className={`headerIcon ${pageActive}`}>{updatedData ? <div className='headerIconDot'></div> : ""}<img src={uploadIcon} alt="upload" /></button>
             </header>
-            <div>
+            <div className='mt-14'>
                 <div className='DisplayTable grid grid-cols-4 w-full '>
-                    {iteratedStudents.length ? iteratedStudents.map(([studentId, student]) => {
-                        return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef}></DisplayRow>)
+                    {sortedStudents.length ? sortedStudents.map(([studentId, student]) => {
+                        return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
                     }) : <h1 className='text-center w-screen mt-2 text-2xl'>No Students</h1>}
                     {/* {JSON.stringify(students)} */}
                 </div>
@@ -178,8 +212,9 @@ function Display() {
             }}>Add</button>
             <AdjustMenu
                 adjustMenuRef={adjustMenuRef}
-                onDelete={handleDelete}
-                onEdit={handleEdit}
+                student={students[adjustStudentId]}
+                deleteStudent={deleteStudent}
+                changeSchedule={changeSchedule}
             />
         </div>
     )

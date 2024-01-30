@@ -1,7 +1,3 @@
-.DisplayHeader {
-    position: relative;
-}
-
 ::-webkit-scrollbar {
     width: 0px;
 }
@@ -31,6 +27,36 @@
 .headerIcon:focus {
     outline: none;
 } */
+
+.DisplayHeader input {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.DisplayHeader input:focus {
+    box-shadow: inset 0 0 10px 10px solid red;
+    outline: none
+}
+
+.DisplayHeader>.DisplayHeaderItem {
+    height: 100%;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    width: 25%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.DisplayHeader>.DisplayHeaderItem:first-of-type {
+    border-left: none;
+}
 
 .headerIcon {
     position: absolute;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from 'src/firebase'
+import "src/pages/Edit.css"
 
 const SchoolName = "Walnut Creek"
 
@@ -38,13 +39,12 @@ function Edit() {
             students: students
         })
             .then(() => {
-                setStudents(students);
+                // setStudents(students);
             })
             .catch((error) => {
                 console.log("Error updating document:", error);
             });
     }
-
 
     useEffect(() => {
         fetchStudents();
@@ -53,10 +53,10 @@ function Edit() {
     return (
         <div className='flex flex-col h-full items-center'>
             <header className='w-full min-h-14 bg-primary text-gray-200 font-extrabold text-2xl flex items-center justify-center'>Tcs Dashboard</header>
-            <textarea className='w-3/4 h-3/4 mt-8 bg-slate-300 rounded-xl p-2' value={addingStudents} onChange={(e) => {
-                try { let parsed = JSON.parse(e.target.value); setAddingStudents(parsed); setInvalid(false) } catch (e) { setInvalid(true) }
+            <textarea className={`w-3/4 flex-grow mt-8 bg-slate-300 rounded-xl p-2 outline-none ${invalid ? "invalid" : ""}`} value={addingStudents} onChange={(e) => {
+                try { setAddingStudents(e.target.value); JSON.parse(e.target.value); setInvalid(false) } catch (e) { setInvalid(true) }
             }}></textarea>
-            <button className='p-3 px-8 mt-2 bg-primary rounded-md text-white font-bold text-2xl' onCli>Add</button>
+            <button className='p-3 px-8 mt-2 bg-primary rounded-md text-white font-bold text-2xl' onClick={() => { updateStudents(...students, addingStudents) }}>Add</button>
         </div>
     )
 }
