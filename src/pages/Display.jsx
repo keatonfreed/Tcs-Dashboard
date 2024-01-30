@@ -99,9 +99,9 @@ function Display() {
                 // console.log("has", studentName, studentSearch, studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName))
                 return studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName)
             } else {
+                const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                 const today = new Date().getDay();
-                const options = { weekday: "long" };
-                const todayDay = new Intl.DateTimeFormat("en-US", options).format(today);
+                const todayDay = weekday[today]
 
                 if (student?.schedule && student.schedule !== todayDay) return false
                 return true
