@@ -92,11 +92,6 @@ function Display() {
     const [sortedStudents, setSortedStudents] = useState([]);
     useEffect(() => {
         let filtered = Object.entries(students).filter(([, student]) => {
-            const today = new Date().getDay();
-            const options = { weekday: "long" };
-            const todayDay = new Intl.DateTimeFormat("en-US", options).format(today);
-
-            if (student?.schedule && student.schedule !== todayDay) return false
 
             let studentName = student?.name?.toLowerCase()
             if (studentSearch) {
@@ -104,6 +99,11 @@ function Display() {
                 // console.log("has", studentName, studentSearch, studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName))
                 return studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName)
             } else {
+                const today = new Date().getDay();
+                const options = { weekday: "long" };
+                const todayDay = new Intl.DateTimeFormat("en-US", options).format(today);
+
+                if (student?.schedule && student.schedule !== todayDay) return false
                 return true
             }
         })
