@@ -91,10 +91,20 @@ function Display() {
 
     const [sortedStudents, setSortedStudents] = useState([]);
     useEffect(() => {
-        let filtered = Object.entries(students).filter(([, student]) => {
+        let alphSort = (list) => {
+            return list.sort((a, b) => {
+                const nameA = a[1].name;
+                const nameB = b[1].name;
 
+                if (!nameA) return 1;
+                if (!nameB) return -1;
+
+                return nameA.localeCompare(nameB); // Alphabetical comparison
+            })
+        };
+        let dayFilter = ([, student], override) => {
             let studentName = student?.name?.toLowerCase()
-            if (studentSearch) {
+            if (studentSearch && !override) {
                 if (!studentName) return false
                 // console.log("has", studentName, studentSearch, studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName))
                 return studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName)
@@ -103,28 +113,14 @@ function Display() {
                 const today = new Date().getDay();
                 const todayDay = weekday[today]
 
-                if (student?.schedule && student.schedule !== todayDay) return false
+                if (student.schedule !== todayDay) return false
+                console.log(todayDay, student.schedule, student.schedule !== todayDay);
                 return true
             }
-        })
-        console.log("filtered")
-        let sorted = filtered.sort((a, b) => {
-            // const today = new Date().getDay();
-            // const options = { weekday: "long" };
-            // const todayDay = new Intl.DateTimeFormat("en-US", options).format(today);
+        };
+        let studentsEntries = alphSort(Object.entries(students))
 
-            // const scheduleA = a[1].schedule;
-            // const scheduleB = b[1].schedule;
-
-            const nameA = a[1].name;
-            const nameB = b[1].name;
-
-            if (!nameA) return 1;
-            if (!nameB) return -1;
-
-            return nameA.localeCompare(nameB); // Alphabetical comparison
-        });
-        setSortedStudents(sorted);
+        setSortedStudents([studentsEntries.filter((student) => dayFilter(student)), studentsEntries.filter((student) => !dayFilter(student, true))]);
     }, [students, studentSearch, setSortedStudents])
 
 
@@ -200,11 +196,23 @@ function Display() {
             </header>
             <div className='mt-14'>
                 <div className='DisplayTable grid grid-cols-4 w-full '>
-                    {sortedStudents.length ? sortedStudents.map(([studentId, student]) => {
-                        return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
-                    }) : <h1 className='text-center w-screen mt-2 text-2xl'>No Students</h1>}
-                    {/* {JSON.stringify(students)} */}
+                    {
+                        !(!sortedStudents[0]?.length && !sortedStudents[1]?.length) ? (
+                            sortedStudents[0]?.length ? sortedStudents[0]?.map(([studentId, student]) => {
+                                return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
+                            }) : ""
+                        ) : <h1 className='text-center w-screen mt-2 text-2xl'>No Students</h1>
+                    }
                 </div>
+                {!studentSearch ? <h1 className='opacity-50 col-span-4 mt-8 pb-2 pl-4 border-b border-black font-bold text-2xl text-black'>Other Days</h1> : ""}
+                <div className='opacity-50 DisplayTable grid grid-cols-4 w-full '>
+                    {
+                        sortedStudents[1]?.length && !studentSearch ? sortedStudents[1]?.map(([studentId, student]) => {
+                            return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
+                        }) : ""
+                    }
+                </div>
+                {/* {JSON.stringify(students)} */}
             </div>
             <button className={`fixed right-4 bottom-4 p-3 px-8 mt-2 bg-primary rounded-md text-white font-bold text-2xl active:brightness-90 select-none ${pageActive}`} onClick={() => {
                 const newStudentId = Math.random().toString().substring(3, 8);
