@@ -22,7 +22,8 @@ body,
   --primary-color: #009900;
   /* --accent-color: #42a142; */
   --accent-color: hsl(125 45% 20% / 1);
-  --secondary-color: #59ea00;
+  /* --secondary-color: #59ea00; */
+  --secondary-color: hsl(125 65% 25% / 1);
   --text-color: #333333;
   /* font-size: 13px; */
 }

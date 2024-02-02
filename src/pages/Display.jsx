@@ -7,6 +7,7 @@ import AdjustMenu from 'src/components/AdjustMenu'
 import DisplayRow from 'src/components/DisplayRow'
 import uploadIcon from "src/content/uploadIcon.png"
 import searchIcon from "src/content/searchIcon.png"
+import filterIcon from "src/content/filterIcon.png"
 import 'src/pages/Display.css'
 
 const SchoolName = "Walnut Creek"
@@ -89,9 +90,21 @@ function Display() {
     }, [])
 
 
+    const [tokenSort, setTokenSort] = useState(false)
+    const [searchOpen, setSearchOpen] = useState(false)
+    const [selectedDay, setSelectedDay] = useState("All")
+
     const [sortedStudents, setSortedStudents] = useState([]);
     useEffect(() => {
         let alphSort = (list) => {
+            if (tokenSort) {
+                return list.sort((a, b) => {
+                    const tokensA = a[1].tokens;
+                    const tokensB = b[1].tokens;
+
+                    return tokensB - tokensA; // Alphabetical comparison
+                })
+            }
             return list.sort((a, b) => {
                 const nameA = a[1].name;
                 const nameB = b[1].name;
@@ -104,24 +117,26 @@ function Display() {
         };
         let dayFilter = ([, student], override) => {
             let studentName = student?.name?.toLowerCase()
+            const todayDay = selectedDay
             if (studentSearch && !override) {
                 if (!studentName) return false
                 // console.log("has", studentName, studentSearch, studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName))
+                if (!student.schedule || (student.schedule !== todayDay && todayDay !== "All")) return false
                 return studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName)
             } else {
-                const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                const today = new Date().getDay();
-                const todayDay = weekday[today]
+                // const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                // const today = new Date().getDay();
+                // const todayDay = weekday[today]
 
-                if (student.schedule !== todayDay) return false
-                console.log(todayDay, student.schedule, student.schedule !== todayDay);
+                if (!student.schedule || (student.schedule !== todayDay && todayDay !== "All")) return false
+                // console.log(todayDay, student.schedule, student.schedule !== todayDay);
                 return true
             }
         };
         let studentsEntries = alphSort(Object.entries(students))
 
         setSortedStudents([studentsEntries.filter((student) => dayFilter(student)), studentsEntries.filter((student) => !dayFilter(student, true))]);
-    }, [students, studentSearch, setSortedStudents])
+    }, [tokenSort, students, studentSearch, selectedDay, setSortedStudents])
 
 
     useEffect(() => {
@@ -180,21 +195,29 @@ function Display() {
     const deleteStudent = () => { updateStudent(adjustStudentId, null) };
     const changeSchedule = (day) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: day }) };
 
-    const [searchOpen, setSearchOpen] = useState(false)
 
     return (
         <div className='flex flex-col h-full'>
-            <header className='DisplayHeader fixed w-full z-10 h-14 min-h-14 bg-primary drop-shadow-[0_3px_5px_rgba(0,0,0,0.4)] text-gray-200 font-extrabold text-2xl flex flex-row'>
+            <header className='DisplayTabs fixed w-full z-10 h-14 min-h-14 bg-primary text-gray-200 font-extrabold text-2xl flex flex-row'>
+                <button onClick={(e) => { setSelectedDay("All") }} className={`DisplayTab ${selectedDay === "All" ? "DisplayTabSelected" : ""}`}>All</button>
+                <button onClick={(e) => { setSelectedDay("Monday") }} className={`DisplayTab ${selectedDay === "Monday" ? "DisplayTabSelected" : ""}`}>Monday</button>
+                <button onClick={(e) => { setSelectedDay("Tuesday") }} className={`DisplayTab ${selectedDay === "Tuesday" ? "DisplayTabSelected" : ""}`}>Tuesday</button>
+                <button onClick={(e) => { setSelectedDay("Wednesday") }} className={`DisplayTab ${selectedDay === "Wednesday" ? "DisplayTabSelected" : ""}`}>Wednesday</button>
+                <button onClick={(e) => { setSelectedDay("Thursday") }} className={`DisplayTab ${selectedDay === "Thursday" ? "DisplayTabSelected" : ""}`}>Thursday</button>
+                <button onClick={(e) => { setSelectedDay("Friday") }} className={`DisplayTab ${selectedDay === "Friday" ? "DisplayTabSelected" : ""}`}>Friday</button>
+                <button onClick={(e) => { setSelectedDay("Saturday") }} className={`DisplayTab ${selectedDay === "Saturday" ? "DisplayTabSelected" : ""}`}>Saturday</button>
+            </header>
+            <header className='DisplayHeader fixed w-full z-10 h-14 mt-14 min-h-14 bg-primary drop-shadow-[0_3px_5px_rgba(0,0,0,0.4)] text-gray-200 font-extrabold text-2xl flex flex-row'>
                 <button onClick={() => { setSearchOpen((old) => !old) }} className={`headerIcon ${pageActive} select-none`} ><img draggable="false" src={searchIcon} alt="search" /></button>
                 {!searchOpen ? (<div className='DisplayHeaderItem'>Name</div>) : (
                     <div className='DisplayHeaderItem'><input type="text" onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setStudentSearch("") } }} placeholder='Search Here' value={studentSearch} onChange={(e) => setStudentSearch(e.target.value)} /></div>
                 )}
-                <div className='DisplayHeaderItem'>Tokens</div>
+                <div className='DisplayHeaderItem'>Tokens<button onClick={() => { setTokenSort((old) => !old) }} className={`headerInlineIcon ${pageActive} ${tokenSort ? "" : "inactiveInlineIcon"}`}><img src={filterIcon} alt="sort" /></button></div>
                 <div className='DisplayHeaderItem'>Print Wanted</div>
                 <div className='DisplayHeaderItem'>Prev Prints</div>
                 <button disabled={updating} onClick={() => { if (!updatedData) return; updateStudents() }} className={`headerIcon ${pageActive}`}>{updatedData ? <div className='headerIconDot'></div> : ""}<img src={uploadIcon} alt="upload" /></button>
             </header>
-            <div className='mt-14'>
+            <div className='mt-28'>
                 <div className='DisplayTable grid grid-cols-4 w-full '>
                     {
                         !(!sortedStudents[0]?.length && !sortedStudents[1]?.length) ? (
@@ -204,10 +227,10 @@ function Display() {
                         ) : <h1 className='text-center w-screen mt-2 text-2xl'>No Students</h1>
                     }
                 </div>
-                {!studentSearch ? <h1 className='opacity-50 col-span-4 mt-8 pb-2 pl-4 border-b border-black font-bold text-2xl text-black'>Other Days</h1> : ""}
+                {selectedDay === "All" && sortedStudents[1]?.length && !studentSearch ? <h1 className='opacity-50 col-span-4 mt-8 pb-2 pl-4 border-b border-black font-bold text-2xl text-black'>No Schedule</h1> : ""}
                 <div className='opacity-50 DisplayTable grid grid-cols-4 w-full '>
                     {
-                        sortedStudents[1]?.length && !studentSearch ? sortedStudents[1]?.map(([studentId, student]) => {
+                        selectedDay === "All" && sortedStudents[1]?.length && !studentSearch ? sortedStudents[1]?.map(([studentId, student]) => {
                             return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
                         }) : ""
                     }
