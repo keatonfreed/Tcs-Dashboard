@@ -4,8 +4,8 @@ import { db } from 'src/firebase'
 import AdjustMenu from 'src/components/AdjustMenu'
 import DisplayRow from 'src/components/DisplayRow'
 
-import mainIcon from "src/content/mainIcon.png"
-import mainIconWide from "src/content/mainIconWide.png"
+// import mainIcon from "src/content/mainIcon.png"
+// import mainIconWide from "src/content/mainIconWide.png"
 import uploadIcon from "src/content/uploadIcon.png"
 import searchIcon from "src/content/searchIcon.png"
 import filterIcon from "src/content/filterIcon.png"
