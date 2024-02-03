@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from 'src/firebase'
 import AdjustMenu from 'src/components/AdjustMenu'
-
-
 import DisplayRow from 'src/components/DisplayRow'
+
+import mainIcon from "src/content/mainIcon.png"
+import mainIconWide from "src/content/mainIconWide.png"
 import uploadIcon from "src/content/uploadIcon.png"
 import searchIcon from "src/content/searchIcon.png"
 import filterIcon from "src/content/filterIcon.png"
@@ -197,7 +198,8 @@ function Display() {
 
 
     return (
-        <div className='flex flex-col h-full'>
+        <div className='pt-0 flex flex-col h-full'>
+            {/* <div className='fixed top-0 h-0 w-full bg-dark-background flex justify-center items-center'><img src={mainIcon} alt="logo" className='h-4/6  ' /></div> */}
             <header className='DisplayTabs fixed w-full z-10 h-14 min-h-14 bg-primary text-gray-200 font-extrabold text-2xl flex flex-row'>
                 <button onClick={(e) => { setSelectedDay("All") }} className={`DisplayTab ${selectedDay === "All" ? "DisplayTabSelected" : ""}`}>All</button>
                 <button onClick={(e) => { setSelectedDay("Monday") }} className={`DisplayTab ${selectedDay === "Monday" ? "DisplayTabSelected" : ""}`}>Monday</button>
@@ -207,17 +209,17 @@ function Display() {
                 <button onClick={(e) => { setSelectedDay("Friday") }} className={`DisplayTab ${selectedDay === "Friday" ? "DisplayTabSelected" : ""}`}>Friday</button>
                 <button onClick={(e) => { setSelectedDay("Saturday") }} className={`DisplayTab ${selectedDay === "Saturday" ? "DisplayTabSelected" : ""}`}>Saturday</button>
             </header>
-            <header className='DisplayHeader fixed w-full z-10 h-14 mt-14 min-h-14 bg-primary drop-shadow-[0_3px_5px_rgba(0,0,0,0.4)] text-gray-200 font-extrabold text-2xl flex flex-row'>
-                <button onClick={() => { setSearchOpen((old) => !old) }} className={`headerIcon ${pageActive} select-none`} ><img draggable="false" src={searchIcon} alt="search" /></button>
+            <header className='mt-14 DisplayHeader fixed w-full z-10 h-14 min-h-14 bg-primary drop-shadow-[0_3px_5px_rgba(0,0,0,0.4)] text-gray-200 font-extrabold text-2xl flex flex-row'>
                 {!searchOpen ? (<div className='DisplayHeaderItem'>Name</div>) : (
                     <div className='DisplayHeaderItem'><input type="text" onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setStudentSearch("") } }} placeholder='Search Here' value={studentSearch} onChange={(e) => setStudentSearch(e.target.value)} /></div>
                 )}
                 <div className='DisplayHeaderItem'>Tokens<button onClick={() => { setTokenSort((old) => !old) }} className={`headerInlineIcon ${pageActive} ${tokenSort ? "" : "inactiveInlineIcon"}`}><img src={filterIcon} alt="sort" /></button></div>
                 <div className='DisplayHeaderItem'>Print Wanted</div>
                 <div className='DisplayHeaderItem'>Prev Prints</div>
+                <button onClick={() => { setSearchOpen((old) => !old) }} className={`headerIcon ${pageActive}`} ><img draggable="false" src={searchIcon} alt="search" /></button>
                 <button disabled={updating} onClick={() => { if (!updatedData) return; updateStudents() }} className={`headerIcon ${pageActive}`}>{updatedData ? <div className='headerIconDot'></div> : ""}<img src={uploadIcon} alt="upload" /></button>
             </header>
-            <div className='mt-28'>
+            <div className=' mt-28'>
                 <div className='DisplayTable grid grid-cols-4 w-full '>
                     {
                         !(!sortedStudents[0]?.length && !sortedStudents[1]?.length) ? (
