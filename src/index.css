@@ -22,7 +22,9 @@ body,
   --primary-color: #009900;
   /* --accent-color: #42a142; */
   --accent-color: hsl(125 45% 20% / 1);
-  --dark-background-color: hsl(125 40% 5% / 1);
+  /* --dark-background-color: hsl(125 40% 5% / 1); */
+  --dark-background-color: #010b00;
+  /* --dark-background-color: white; */
   /* --secondary-color: #59ea00; */
   --secondary-color: hsl(125 65% 25% / 1);
   --text-color: #333333;

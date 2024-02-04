@@ -1,14 +1,16 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from 'src/firebase'
-import "src/pages/Edit.css"
+import "src/pages/Admin.css"
+import Password from 'src/components/Password'
 
 const SchoolName = "Walnut Creek"
 
 
-function Edit() {
+function Admin() {
     const [addingStudents, setAddingStudents] = useState([]);
     const [invalid, setInvalid] = useState(false);
+    const [globalLog, setGlobalLog] = useState({});
 
     const fetchStudents = async () => {
         console.log("fetching", db)
@@ -20,6 +22,7 @@ function Edit() {
                     if (newData.students) {
                         let expandedData = { ...newData.students };
                         console.log(expandedData)
+                        setGlobalLog(newData.globalLog);
                         return expandedData;
                     }
                 } else {
@@ -31,6 +34,12 @@ function Edit() {
             });
 
     }
+
+    useEffect(() => {
+        fetchStudents()
+
+    }, []);
+
     const updateStudentsWithData = async (studentData, override) => {
         console.log("updating", db)
         if ((!studentData || !Object.keys(studentData).length) && !override) return;
@@ -55,7 +64,7 @@ function Edit() {
         }
         if (!toAddStudents || !toAddStudents.length) return console.log("not sending, no data")
         let studentsWithIds = toAddStudents?.reduce((acc, student) => {
-            let newStudentId = Math.random().toString().substring(3, 8);
+            let newStudentId = Math.random().toString().substring(3, 20);
             acc[newStudentId] = student;
             return acc;
         }, {})
@@ -113,15 +122,30 @@ function Edit() {
     function deleteAllStudents() {
         if (!window.confirm("ARE YOU SURE?")) return
         if (!window.confirm("Click OK to continue...")) return
-        if (window.confirm("Click CANCEL to continue...")) return
+        // if (window.confirm("Click CANCEL to continue...")) return
         if (!window.confirm("FINAL CONFIRM: This will permanently DELETE ALL user data through the entire database, and cannot be undone. Do not activate unless completely sure.")) return
         updateStudentsWithData({}, true)
         window.alert("ALL data cleared, if this was an issue please check in with help asap.")
     }
 
+
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [showGlobalLog, setShowGlobalLog] = useState(false);
+
+    if (!imageLoaded) {
+        return < Password setImageLoaded={setImageLoaded} />
+    }
     return (
         <div className='flex flex-col h-full items-center'>
             <header className='w-full min-h-14 bg-primary text-gray-200 font-extrabold text-2xl flex items-center justify-center'>Tcs Dashboard</header>
+            {showGlobalLog && <p className='mt-24 w-full px-20 text-slate-700 text-sm'>
+                {Object.entries(globalLog).length ? Object.entries(globalLog).sort((a, b) => b[0] - a[0]).map(([date, log]) => {
+                    return <div key={date} className='px-4 w-full flex justify-between mb-1 pt-1 border-t border-text last:border-b last:pb-1'>
+                        <h1>{new Date(Number(date)).toLocaleString()}</h1>
+                        <p>{log}</p>
+                    </div>
+                }) : "No log"}
+            </p>}
             <button className='p-3 px-8 mt-8 mb-4 bg-primary rounded-md text-white font-bold text-2xl' onClick={() => fileImportRef?.current?.click()}>Import CSV</button>
             <p className='mt-2 px-20 text-slate-700 text-sm '>{fileImportData}</p>
             <textarea ref={addStudentsInput} className={`w-3/4 h-96 flex-grow mt-8 bg-slate-300 rounded-xl p-2 outline-none ${invalid ? "invalid" : ""}`} value={addingStudents} onChange={(e) => {
@@ -129,9 +153,10 @@ function Edit() {
             }}></textarea>
             <button className='p-3 px-8 mt-2 bg-primary rounded-md text-white font-bold text-2xl' disabled={invalid} onClick={() => addStudents()}>Add</button>
             <input type='file' accept=".csv" className='hidden' onChange={fileImportChange} ref={fileImportRef} ></input>
+            <button className='p-3 px-8 fixed mt-14 top-4 left-4 mb-8 bg-blue-600 rounded-md text-white font-bold text-2xl' onClick={() => setShowGlobalLog((old) => { setShowGlobalLog(!old) })}>Global Update Log</button>
             <button className='p-3 px-8 mt-40 mb-8 bg-red-600 rounded-md text-white font-bold text-2xl' onClick={() => deleteAllStudents()}>!Delete All!</button>
         </div>
     )
 }
 
-export default Edit
+export default Admin
