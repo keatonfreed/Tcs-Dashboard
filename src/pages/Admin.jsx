@@ -94,7 +94,7 @@ function Admin() {
                 if (name) {
                     out.push({
                         name: name,
-                        schedule: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][Math.floor(i / 4)],
+                        schedule: [['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][Math.floor(i / 4)]],
                         tokens: tokens,
                         wanted: wanted,
                         prev: prev

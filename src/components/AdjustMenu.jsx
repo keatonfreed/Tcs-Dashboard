@@ -11,8 +11,18 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule }) {
     };
 
     const handleEdit = (day) => {
-        changeSchedule(day);
-        adjustMenuRef.current?.close();
+        let old = student?.schedule || []
+        if (typeof old !== "object") old = [old]
+        if (old.includes(day)) {
+            let index = old.indexOf(day)
+            if (index > -1) {
+                old.splice(index, 1);
+            }
+        } else {
+            old.push(day)
+        }
+        changeSchedule(old);
+        // adjustMenuRef.current?.close();
     };
 
     return (
@@ -28,12 +38,12 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule }) {
                     <option value="Friday">Friday</option>
                     <option value="Saturday">Saturday</option>
                 </select> */}
-                <button onClick={() => handleEdit("Monday")} className={`adjustSelect ${student?.schedule === "Monday" ? "adjustSelected" : ""}`}>Monday</button>
-                <button onClick={() => handleEdit("Tuesday")} className={`adjustSelect ${student?.schedule === "Tuesday" ? "adjustSelected" : ""}`}>Tuesday</button>
-                <button onClick={() => handleEdit("Wednesday")} className={`adjustSelect ${student?.schedule === "Wednesday" ? "adjustSelected" : ""}`}>Wednesday</button>
-                <button onClick={() => handleEdit("Thursday")} className={`adjustSelect ${student?.schedule === "Thursday" ? "adjustSelected" : ""}`}>Thursday</button>
-                <button onClick={() => handleEdit("Friday")} className={`adjustSelect ${student?.schedule === "Friday" ? "adjustSelected" : ""}`}>Friday</button>
-                <button onClick={() => handleEdit("Saturday")} className={`adjustSelect ${student?.schedule === "Saturday" ? "adjustSelected" : ""}`}>Saturday</button>
+                <button onClick={() => handleEdit("Monday")} className={`adjustSelect ${student?.schedule?.includes("Monday") ? "adjustSelected" : ""}`}>Monday</button>
+                <button onClick={() => handleEdit("Tuesday")} className={`adjustSelect ${student?.schedule?.includes("Tuesday") ? "adjustSelected" : ""}`}>Tuesday</button>
+                <button onClick={() => handleEdit("Wednesday")} className={`adjustSelect ${student?.schedule?.includes("Wednesday") ? "adjustSelected" : ""}`}>Wednesday</button>
+                <button onClick={() => handleEdit("Thursday")} className={`adjustSelect ${student?.schedule?.includes("Thursday") ? "adjustSelected" : ""}`}>Thursday</button>
+                <button onClick={() => handleEdit("Friday")} className={`adjustSelect ${student?.schedule?.includes("Friday") ? "adjustSelected" : ""}`}>Friday</button>
+                <button onClick={() => handleEdit("Saturday")} className={`adjustSelect ${student?.schedule?.includes("Saturday") ? "adjustSelected" : ""}`}>Saturday</button>
                 <button onClick={handleDelete} className='bg-red-500 rounded-lg p-2 mt-4 select-none'>Delete Student</button>
             </div>
         </dialog>

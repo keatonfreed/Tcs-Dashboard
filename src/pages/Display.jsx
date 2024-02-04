@@ -160,13 +160,13 @@ function Display() {
             const todayDay = selectedDay
             if (studentSearch && !override) {
                 if (!studentName) return false
-                if (!student.schedule || (student.schedule !== todayDay && todayDay !== "All")) return false
+                if (!student?.schedule?.length || (!student.schedule.includes(todayDay) && todayDay !== "All")) return false
                 return studentName.includes(studentSearch.toLowerCase()) || studentSearch.toLowerCase().includes(studentName)
             } else {
                 // const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                 // const today = new Date().getDay();
                 // const todayDay = weekday[today]
-                if (!student.schedule || (student.schedule !== todayDay && todayDay !== "All")) return false
+                if (!student?.schedule?.length || (!student.schedule.includes(todayDay) && todayDay !== "All")) return false
                 return true
             }
         };
@@ -230,7 +230,7 @@ function Display() {
     const adjustMenuRef = useRef(null)
 
     const deleteStudent = () => { updateStudent(adjustStudentId, null) };
-    const changeSchedule = (day) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: day }) };
+    const changeSchedule = (days) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: days }) };
 
 
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -283,7 +283,7 @@ function Display() {
             </div>
             <button className={`fixed right-4 bottom-4 p-3 px-8 mt-2 bg-primary rounded-md text-white font-bold text-2xl active:brightness-90 select-none ${pageActive}`} onClick={() => {
                 const newStudentId = Math.random().toString().substring(3, 20);
-                updateStudent(newStudentId, { name: "", tokens: 0, wanted: "", prev: "" });
+                updateStudent(newStudentId, { name: "", tokens: 0, wanted: "", prev: "", schedule: [] });
             }}>Add</button>
             <AdjustMenu
                 adjustMenuRef={adjustMenuRef}
