@@ -4,7 +4,7 @@ import { db } from 'src/firebase'
 import AdjustMenu from 'src/components/AdjustMenu'
 import DisplayRow from 'src/components/DisplayRow'
 import Password from 'src/components/Password'
-
+import { useMediaQuery } from 'react-responsive'
 
 // import mainIcon from "src/content/mainIcon.png"
 import mainIconWide from "src/content/mainIconWide.png"
@@ -46,6 +46,9 @@ function Display() {
 
     const [studentSearch, setStudentSearch] = useState("");
     const [globalLog, setGlobalLog] = useState({});
+
+    const mediumScreen = useMediaQuery({ query: '(max-width: 1200px)' })
+    const smallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
 
     const fetchStudents = async () => {
@@ -241,28 +244,28 @@ function Display() {
 
     return (
         <div className='pt-24 flex flex-col h-full'>
-            <div className='fixed z-40 top-0 h-24 w-full bg-dark-background flex justify-center items-center'><img src={mainIconWide} draggable="false" alt="logo" className='h-4/6  ' /></div>
+            <div className='fixed z-40 top-0 h-24 w-full bg-dark-background flex justify-center items-center'><img src={mainIconWide} draggable="false" alt="logo" className='sm:h-4/6 h-1/2 max-w-[90%]' /></div>
             <header className='DisplayTabs fixed w-full z-10 h-14 min-h-14 bg-primary text-gray-200 font-extrabold text-2xl flex flex-row'>
-                <button onClick={(e) => { setSelectedDay("All") }} className={`DisplayTab ${selectedDay === "All" ? "DisplayTabSelected" : ""}`}>All</button>
-                <button onClick={(e) => { setSelectedDay("Monday") }} className={`DisplayTab ${selectedDay === "Monday" ? "DisplayTabSelected" : ""}`}>Monday</button>
-                <button onClick={(e) => { setSelectedDay("Tuesday") }} className={`DisplayTab ${selectedDay === "Tuesday" ? "DisplayTabSelected" : ""}`}>Tuesday</button>
-                <button onClick={(e) => { setSelectedDay("Wednesday") }} className={`DisplayTab ${selectedDay === "Wednesday" ? "DisplayTabSelected" : ""}`}>Wednesday</button>
-                <button onClick={(e) => { setSelectedDay("Thursday") }} className={`DisplayTab ${selectedDay === "Thursday" ? "DisplayTabSelected" : ""}`}>Thursday</button>
-                <button onClick={(e) => { setSelectedDay("Friday") }} className={`DisplayTab ${selectedDay === "Friday" ? "DisplayTabSelected" : ""}`}>Friday</button>
-                <button onClick={(e) => { setSelectedDay("Saturday") }} className={`DisplayTab ${selectedDay === "Saturday" ? "DisplayTabSelected" : ""}`}>Saturday</button>
+                <button onClick={(e) => { setSelectedDay("All") }} className={`DisplayTab ${selectedDay === "All" ? "DisplayTabSelected" : ""}`}>{mediumScreen ? "*" : "All"}</button>
+                <button onClick={(e) => { setSelectedDay("Monday") }} className={`DisplayTab ${selectedDay === "Monday" ? "DisplayTabSelected" : ""}`}>{mediumScreen ? "M" : "Monday"}</button>
+                <button onClick={(e) => { setSelectedDay("Tuesday") }} className={`DisplayTab ${selectedDay === "Tuesday" ? "DisplayTabSelected" : ""}`}>{mediumScreen ? "T" : "Tuesday"}</button>
+                <button onClick={(e) => { setSelectedDay("Wednesday") }} className={`DisplayTab ${selectedDay === "Wednesday" ? "DisplayTabSelected" : ""}`}>{mediumScreen ? "W" : "Wednesday"}</button>
+                <button onClick={(e) => { setSelectedDay("Thursday") }} className={`DisplayTab ${selectedDay === "Thursday" ? "DisplayTabSelected" : ""}`}>{mediumScreen ? smallScreen ? "T" : "Th" : "Thursday"}</button>
+                <button onClick={(e) => { setSelectedDay("Friday") }} className={`DisplayTab ${selectedDay === "Friday" ? "DisplayTabSelected" : ""}`}>{mediumScreen ? "F" : "Friday"}</button>
+                <button onClick={(e) => { setSelectedDay("Saturday") }} className={`DisplayTab ${selectedDay === "Saturday" ? "DisplayTabSelected" : ""}`}>{mediumScreen ? "S" : "Saturday"}</button>
             </header>
             <header className='mt-14 DisplayHeader fixed w-full z-10 h-14 min-h-14 bg-primary drop-shadow-[0_3px_5px_rgba(0,0,0,0.4)] text-gray-200 font-extrabold text-2xl flex flex-row'>
-                {!searchOpen ? (<div onClick={() => { toggleSearchOpen() }} className='DisplayHeaderItem'>Name</div>) : (
-                    <div className='DisplayHeaderItem'><input ref={searchInput} type="text" onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setStudentSearch("") } }} placeholder='Search Here' value={studentSearch} onChange={(e) => setStudentSearch(e.target.value)} /></div>
+                {!searchOpen ? (<div onClick={() => { toggleSearchOpen() }} className={`DisplayHeaderItem ${smallScreen ? "smallScreen" : ""}`}>Name</div>) : (
+                    <div className={`DisplayHeaderItem ${smallScreen ? "smallScreen" : ""}`}><input ref={searchInput} type="text" onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setStudentSearch("") } }} placeholder='Search Here' value={studentSearch} onChange={(e) => setStudentSearch(e.target.value)} /></div>
                 )}
-                <div className='DisplayHeaderItem'>Tokens<button onClick={() => { setTokenSort((old) => !old) }} className={`headerInlineIcon ${pageActive} ${tokenSort ? "" : "inactiveInlineIcon"}`}><img draggable="false" src={filterIcon} alt="sort" /></button></div>
-                <div className='DisplayHeaderItem'>Print Wanted</div>
-                <div className='DisplayHeaderItem'>Prev Prints</div>
+                <div className={`DisplayHeaderItem ${smallScreen ? "smallScreen" : ""}`}>Tokens<button onClick={() => { setTokenSort((old) => !old) }} className={`headerInlineIcon ${smallScreen ? "smallScreen" : ""} ${pageActive} ${tokenSort ? "" : "inactiveInlineIcon"}`}><img draggable="false" src={filterIcon} alt="sort" /></button></div>
+                {!smallScreen && <div className='DisplayHeaderItem'>Print Wanted</div>}
+                {!smallScreen && <div className='DisplayHeaderItem'>Prev Prints</div>}
                 <button onClick={() => { toggleSearchOpen() }} className={`headerIcon ${pageActive}`} ><img draggable="false" src={searchIcon} alt="search" /></button>
                 <button disabled={updating} onClick={() => { if (!updatedData) return; updateStudents() }} className={`headerIcon ${pageActive}`}>{updatedData ? <div className='headerIconDot'></div> : ""}<img draggable="false" src={uploadIcon} alt="upload" /></button>
             </header>
             <div className=' mt-28'>
-                <div className='DisplayTable grid grid-cols-4 w-full '>
+                <div className={`${smallScreen ? "smallScreen" : ""} DisplayTable grid grid-cols-2 sm:grid-cols-4 w-full`}>
                     {
                         !(!sortedStudents[0]?.length && !sortedStudents[1]?.length) ? (
                             sortedStudents[0]?.length ? sortedStudents[0]?.map(([studentId, student]) => {

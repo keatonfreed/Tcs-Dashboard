@@ -68,6 +68,10 @@
     height: 90%;
 }
 
-.DisplayTable>*:nth-child(4n+1) {
+.DisplayTable:not(.smallScreen)>*:nth-child(4n+1) {
+    border-left: none;
+}
+
+.DisplayTable.smallScreen>*:nth-child(2n+1) {
     border-left: none;
 }

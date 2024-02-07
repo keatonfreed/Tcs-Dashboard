@@ -52,6 +52,10 @@
     box-shadow: inset 0px 0px 10px -2px black;
 }
 
+.DisplayHeader>.DisplayHeaderItem.smallScreen {
+    width: 50%
+}
+
 .DisplayHeader>.DisplayHeaderItem, .DisplayTabs>.DisplayTab {
     height: 100%;
     border-bottom: 1px solid black;
@@ -84,6 +88,11 @@
     right: 5%;
     left: unset;
     max-height: 50%;
+}
+
+.headerInlineIcon.smallScreen {
+    right: unset;
+    left: 5%;
 }
 
 
