@@ -1,3 +1,14 @@
+.DisplayRow {
+    height: 50px;
+    transition: border 200ms ease-in-out, height 200ms ease-in-out;
+}
+
+.DisplayRow.rowExpanded {
+    height: calc(50px + 10em);
+    /* max-height: min-content; */
+    border-bottom: 1px solid black;
+}
+
 .DisplayRowItem {
     border-bottom: 1px solid black;
     border-left: 1px solid black;
@@ -33,7 +44,7 @@
     box-shadow: inset 0px 0px 5px var(--primary-color);
 }
 
-.DisplayRowItem:has(.adjustMenuButton) {
+.DisplayRowItem:has(.adjustMenuButton), .DisplayRowItem:has(.historyDropButton) {
     position: relative;
 }
 
@@ -50,6 +61,28 @@
 .DisplayRowItem .adjustMenuButton {
     position: absolute;
     left: 0;
+}
+
+.DisplayRowItem .historyDropButton {
+    position: absolute;
+    right: 0;
+}
+
+.DisplayRow .DisplayRowHistory {
+    transition: opacity 200ms ease-in-out;
+    opacity: 0;
+    overflow-y: scroll;
+}
+
+.DisplayRow .DisplayRowHistory:not(.rowExpanded) {
+    user-select: none;
+    pointer-events: none;
+}
+
+.DisplayRow .DisplayRowHistory.rowExpanded {
+    transition-delay: 200ms;
+    /* display: block; */
+    opacity: 1;
 }
 
 .DisplayRowItem .changeTokenButton {

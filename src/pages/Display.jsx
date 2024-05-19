@@ -88,23 +88,36 @@ function Display() {
         let storedStudentsList = Object.entries(storedStudents)
 
         storedStudentsList.forEach(([studentId, student]) => {
-            if (!students[studentId]) return removedCount++
+            if (!students[studentId]) removedCount++
+
         })
+        let studentsWithHistory = { ...students }
         studentsList.forEach(([studentId, student]) => {
+
+            if (!studentsWithHistory[studentId].history) studentsWithHistory[studentId].history = {}
+            if (storedStudents[studentId]) {
+                if (storedStudents[studentId].tokens !== students[studentId].tokens) {
+                    studentsWithHistory[studentId].history[Date.now()] = students[studentId].tokens
+                }
+            } else {
+                studentsWithHistory[studentId].history[Date.now()] = students[studentId].tokens
+            }
+
             if (!storedStudents[studentId]) return addedCount++
-            if (!isDeepEqual(student, storedStudents[studentId])) return changedCount++
+            if (!isDeepEqual(student, storedStudents[studentId])) changedCount++
         })
+        setStudents(studentsWithHistory)
 
         newLog[Date.now()] = `Updated Students from Main Page: ${addedCount} Added, ${removedCount} Removed, ${changedCount} Changed`
         console.log("updating", db, newLog)
         setGlobalLog(newLog)
         const docRef = doc(db, "Schools", SchoolName);
         await updateDoc(docRef, {
-            students: students,
+            students: studentsWithHistory,
             globalLog: newLog
         })
             .then(() => {
-                setStoredStudents(students);
+                setStoredStudents(studentsWithHistory);
                 setUpdating(false);
             })
             .catch((error) => {
@@ -265,7 +278,7 @@ function Display() {
                 <button disabled={updating} onClick={() => { if (!updatedData) return; updateStudents() }} className={`headerIcon ${pageActive}`}>{updatedData ? <div className='headerIconDot'></div> : ""}<img draggable="false" src={uploadIcon} alt="upload" /></button>
             </header>
             <div className=' mt-28'>
-                <div className={`${smallScreen ? "smallScreen" : ""} DisplayTable grid grid-cols-2 sm:grid-cols-4 w-full`}>
+                <div className={`${smallScreen ? "smallScreen" : ""} DisplayTable flex flex-col w-full`}>
                     {
                         !(!sortedStudents[0]?.length && !sortedStudents[1]?.length) ? (
                             sortedStudents[0]?.length ? sortedStudents[0]?.map(([studentId, student]) => {
@@ -275,7 +288,7 @@ function Display() {
                     }
                 </div>
                 {selectedDay === "All" && sortedStudents[1]?.length && !studentSearch ? <h1 className='opacity-50 col-span-4 mt-8 pb-2 pl-4 border-b border-black font-bold text-2xl text-black'>No Schedule</h1> : ""}
-                <div className='opacity-50 DisplayTable grid grid-cols-4 w-full '>
+                <div className='opacity-50 DisplayTable flex flex-col w-full'>
                     {
                         selectedDay === "All" && sortedStudents[1]?.length && !studentSearch ? sortedStudents[1]?.map(([studentId, student]) => {
                             return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
