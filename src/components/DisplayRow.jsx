@@ -41,7 +41,7 @@ function DisplayRow({ studentId, student, updateStudent, pageActive, adjustMenuR
             </div>
             <div className={`DisplayRowHistory w-full max-h-40 ${historyOpen ? "rowExpanded" : ""}`}>
                 <div className="flex font-bold flex-col">
-                    {Object.entries(student.history).length ? Object.entries(student.history).map(([date, log]) => {
+                    {student.history && Object.entries(student.history).length ? Object.entries(student.history).map(([date, log]) => {
                         return (
                             <div className='w-full flex justify-center'>
                                 <p className='pr-4 w-1/2 text-right'>{new Date(Number(date)).toDateString()}</p>
