@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import 'src/components/AdjustMenu.css'
 
-function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule }) {
+function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, typingData, changeTyperID }) {
+    const [typerSelectOpen, setTyperSelectOpen] = useState(false)
+    const [typerSelectManual, setTyperSelectManual] = useState(false)
+
+    useEffect(() => {
+        adjustMenuRef.current.onclose = (e) => {
+            setTyperSelectOpen(false)
+            setTyperSelectManual(false)
+        }
+    }, [adjustMenuRef]);
 
     const handleDelete = () => {
         if (window.confirm(`Are you sure you want to delete ${student?.name || "this student"}, it cannot be undone.`)) {
@@ -25,26 +34,54 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule }) {
         // adjustMenuRef.current?.close();
     };
 
+    const normalizeName = (name) => name.toLowerCase().replace(/[^a-zA-Z\s]/g, '').trim();
+
+
     return (
         <dialog ref={adjustMenuRef} onClick={(e) => { if (e.target === adjustMenuRef.current) e.currentTarget.close() }} className='m-auto bg-transparent'>
-            <div className='p-8 rounded-xl w-80 flex flex-col gap-1 bg-accent text-center text-white text-lg'>
+            <div className={`p-8 rounded-xl ${!typerSelectOpen ? "w-80" : "w-auto"} flex flex-col gap-1 bg-accent text-center text-white text-lg`}>
                 <h1 className='font-bold text-3xl underline mb-4 select-none'>{student?.name || "Student"}</h1>
-                {/* <select value={selectedDay} onChange={e => setSelectedDay(e.target.value)}>
-                    <option value="">Select Day</option>
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                </select> */}
-                <button onClick={() => handleEdit("Monday")} className={`adjustSelect ${student?.schedule?.includes("Monday") ? "adjustSelected" : ""}`}>Monday</button>
-                <button onClick={() => handleEdit("Tuesday")} className={`adjustSelect ${student?.schedule?.includes("Tuesday") ? "adjustSelected" : ""}`}>Tuesday</button>
-                <button onClick={() => handleEdit("Wednesday")} className={`adjustSelect ${student?.schedule?.includes("Wednesday") ? "adjustSelected" : ""}`}>Wednesday</button>
-                <button onClick={() => handleEdit("Thursday")} className={`adjustSelect ${student?.schedule?.includes("Thursday") ? "adjustSelected" : ""}`}>Thursday</button>
-                <button onClick={() => handleEdit("Friday")} className={`adjustSelect ${student?.schedule?.includes("Friday") ? "adjustSelected" : ""}`}>Friday</button>
-                <button onClick={() => handleEdit("Saturday")} className={`adjustSelect ${student?.schedule?.includes("Saturday") ? "adjustSelected" : ""}`}>Saturday</button>
-                <button onClick={handleDelete} className='bg-red-500 rounded-lg p-2 mt-4 select-none'>Delete Student</button>
+                {!typerSelectOpen ? <>
+                    <button onClick={() => handleEdit("Monday")} className={`adjustSelect ${student?.schedule?.includes("Monday") ? "adjustSelected" : ""}`}>Monday</button>
+                    <button onClick={() => handleEdit("Tuesday")} className={`adjustSelect ${student?.schedule?.includes("Tuesday") ? "adjustSelected" : ""}`}>Tuesday</button>
+                    <button onClick={() => handleEdit("Wednesday")} className={`adjustSelect ${student?.schedule?.includes("Wednesday") ? "adjustSelected" : ""}`}>Wednesday</button>
+                    <button onClick={() => handleEdit("Thursday")} className={`adjustSelect ${student?.schedule?.includes("Thursday") ? "adjustSelected" : ""}`}>Thursday</button>
+                    <button onClick={() => handleEdit("Friday")} className={`adjustSelect ${student?.schedule?.includes("Friday") ? "adjustSelected" : ""}`}>Friday</button>
+                    <button onClick={() => handleEdit("Saturday")} className={`adjustSelect ${student?.schedule?.includes("Saturday") ? "adjustSelected" : ""}`}>Saturday</button>
+                    <button onClick={() => setTyperSelectOpen(true)} className={`mt-4 adjustSelect ${student?.typerID ? "adjustSelected" : ""}`}>Tcs Typer</button>
+                    <button onClick={handleDelete} className='bg-red-500 rounded-lg p-2 mt-4 select-none'>Delete Student</button>
+                </> : <>
+                    <button onClick={() => setTyperSelectOpen(false)} className='bg-red-800 rounded-lg p-1 mb-4 select-none w-96'>Cancel</button>
+                    <button onClick={() => {
+                        setTyperSelectManual(false)
+                        if (student?.typerID) {
+                            changeTyperID()
+                        } else {
+                            const typerID = Object.entries(typingData).find(
+                                ([, studentData]) => normalizeName(student?.name) === normalizeName(studentData.full_name)
+                            )?.[0];
+
+                            if (typerID) {
+                                changeTyperID(typerID);
+                            } else {
+                                console.log("User not found:", student?.name)
+                                setTyperSelectManual(true)
+                                window.open("https://tcs-typer.netlify.app/api/users")
+                            }
+                        }
+                    }} className={` adjustSelect ${!student?.typerID ? "adjustSelected" : ""}`}>{student?.typerID ? `Unlink "${student?.name}"` : `Find "${student?.name}"`}</button>
+                    <h1 className='mt-4'>User ID: {student?.typerID || "None"}</h1>
+                    <h1 className=''>User Name: {typingData[student?.typerID]?.full_name || "None"}</h1>
+                    {typerSelectManual && <input type="number" onChange={(e) => {
+                        let manualNum = e.target.valueAsNumber
+                        console.log(manualNum)
+                        if (manualNum && manualNum > 0) {
+                            changeTyperID(manualNum);
+                        } else {
+                            changeTyperID();
+                        }
+                    }} placeholder='Input ID Manually' className={`mt-4 bg-red-600 text-center rounded-lg p-1`} />}
+                </>}
             </div>
         </dialog>
     );

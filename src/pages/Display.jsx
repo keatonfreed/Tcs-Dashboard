@@ -47,9 +47,48 @@ function Display() {
     const [studentSearch, setStudentSearch] = useState("");
     const [globalLog, setGlobalLog] = useState({});
 
+    const [typingData, setTypingData] = useState({});
+
     const mediumScreen = useMediaQuery({ query: '(max-width: 1200px)' })
     const smallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
+    function filterBestTest(tests) {
+        let bestTest = null;
+        for (const test of tests) {
+            if (test["accuracy"] >= 90) {
+                if (bestTest === null || test["wpm"] > bestTest["wpm"]) {
+                    bestTest = {
+                        wpm: test["wpm"],
+                        accuracy: test["accuracy"],
+                    };
+                }
+            }
+        }
+        return bestTest
+    }
+
+    const fetchTyping = async () => {
+        console.log("fetching typing")
+        await fetch("https://tcs-typer.netlify.app/api/users")
+            .then(resp => resp.json())
+            .then((typingResp) => {
+                if (typingResp && typingResp.length) {
+                    let newData = typingResp.reduce((acc, { id, ...rest }) => {
+                        let bestTest = filterBestTest(rest?.["tests"])
+                        acc[id] = { ...rest, DASH_BestTest: bestTest };
+                        return acc;
+                    }, {});
+                    console.dir(newData)
+                    setTypingData(newData)
+                } else {
+                    console.error("No typing data found:", typingResp);
+                }
+            })
+            .catch((error) => {
+                console.log("Error fetching typing data:", error);
+            });
+
+    }
 
     const fetchStudents = async () => {
         setUpdating(true)
@@ -129,10 +168,11 @@ function Display() {
 
     useEffect(() => {
         fetchStudents();
+        fetchTyping();
     }, [])
 
 
-    const [tokenSort, setTokenSort] = useState(false)
+    const [sortMethod, setSortMethod] = useState(false)
     const searchInput = useRef()
     const [searchOpen, setSearchOpen] = useState(false)
     const [selectedDay, setSelectedDay] = useState("All")
@@ -153,23 +193,36 @@ function Display() {
     const [sortedStudents, setSortedStudents] = useState([]);
     useEffect(() => {
         let alphSort = (list) => {
-            if (tokenSort) {
+
+            if (sortMethod === "TOKEN") {
                 return list.sort((a, b) => {
                     const tokensA = a[1].tokens;
                     const tokensB = b[1].tokens;
 
                     return tokensB - tokensA; // Alphabetical comparison
                 })
+            } else if (sortMethod === "TYPING") {
+                return list.sort((a, b) => {
+
+                    const rankA = typingData[a[1].typerID]?.["DASH_BestTest"];
+                    const rankB = typingData[b[1].typerID]?.["DASH_BestTest"];
+
+                    if (!rankA) return 1;
+                    if (!rankB) return -1;
+
+                    return rankB - rankA; // Alphabetical comparison
+                })
+            } else {
+                return list.sort((a, b) => {
+                    const nameA = a[1].name;
+                    const nameB = b[1].name;
+
+                    if (!nameA) return 1;
+                    if (!nameB) return -1;
+
+                    return nameA.localeCompare(nameB); // Alphabetical comparison
+                })
             }
-            return list.sort((a, b) => {
-                const nameA = a[1].name;
-                const nameB = b[1].name;
-
-                if (!nameA) return 1;
-                if (!nameB) return -1;
-
-                return nameA.localeCompare(nameB); // Alphabetical comparison
-            })
         };
         let dayFilter = ([, student], override) => {
             let studentName = student?.name?.toLowerCase()
@@ -189,7 +242,7 @@ function Display() {
         let studentsEntries = alphSort(Object.entries(students))
 
         setSortedStudents([studentsEntries.filter((student) => dayFilter(student)), studentsEntries.filter((student) => !dayFilter(student, true))]);
-    }, [tokenSort, students, studentSearch, selectedDay, setSortedStudents])
+    }, [sortMethod, students, studentSearch, selectedDay, setSortedStudents, typingData])
 
 
     useEffect(() => {
@@ -247,7 +300,7 @@ function Display() {
 
     const deleteStudent = () => { updateStudent(adjustStudentId, null) };
     const changeSchedule = (days) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: days }) };
-
+    const changeTyperID = (id) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], typerID: id }) };
 
     const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -271,7 +324,8 @@ function Display() {
                 {!searchOpen ? (<div onClick={() => { toggleSearchOpen() }} className={`DisplayHeaderItem ${smallScreen ? "smallScreen" : ""}`}>Name</div>) : (
                     <div className={`DisplayHeaderItem ${smallScreen ? "smallScreen" : ""}`}><input ref={searchInput} type="text" onKeyDown={(e) => { if (e.key === "Escape") { setSearchOpen(false); setStudentSearch("") } }} placeholder='Search Here' value={studentSearch} onChange={(e) => setStudentSearch(e.target.value)} /></div>
                 )}
-                <div className={`DisplayHeaderItem ${smallScreen ? "smallScreen" : ""}`}>Tokens<button onClick={() => { setTokenSort((old) => !old) }} className={`headerInlineIcon ${smallScreen ? "smallScreen" : ""} ${pageActive} ${tokenSort ? "" : "inactiveInlineIcon"}`}><img draggable="false" src={filterIcon} alt="sort" /></button></div>
+                <div className={`DisplayHeaderItem ${smallScreen ? "smallScreen" : ""}`}>Tokens<button onClick={() => { setSortMethod((old) => { return old === "TOKEN" ? false : "TOKEN" }) }} className={`headerInlineIcon ${smallScreen ? "smallScreen" : ""} ${pageActive} ${sortMethod === "TOKEN" ? "" : "inactiveInlineIcon"}`}><img draggable="false" src={filterIcon} alt="sort" /></button></div>
+                {!smallScreen && <div className='DisplayHeaderItem'>Typing Test<button onClick={() => { setSortMethod((old) => { return old === "TYPING" ? false : "TYPING" }) }} className={`headerInlineIcon ${smallScreen ? "smallScreen" : ""} ${pageActive} ${sortMethod === "TYPING" ? "" : "inactiveInlineIcon"}`}><img draggable="false" src={filterIcon} alt="sort" /></button></div>}
                 {!smallScreen && <div className='DisplayHeaderItem'>Print Wanted</div>}
                 {!smallScreen && <div className='DisplayHeaderItem'>Prev Prints</div>}
                 <button onClick={() => { toggleSearchOpen() }} className={`headerIcon ${pageActive}`} ><img draggable="false" src={searchIcon} alt="search" /></button>
@@ -282,7 +336,7 @@ function Display() {
                     {
                         !(!sortedStudents[0]?.length && !sortedStudents[1]?.length) ? (
                             sortedStudents[0]?.length ? sortedStudents[0]?.map(([studentId, student]) => {
-                                return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
+                                return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId} studentTypingData={typingData?.[student.typerID]}></DisplayRow>)
                             }) : ""
                         ) : <h1 className='text-center w-screen mt-2 text-2xl'>No Students</h1>
                     }
@@ -291,7 +345,7 @@ function Display() {
                 <div className='opacity-50 DisplayTable flex flex-col w-full'>
                     {
                         selectedDay === "All" && sortedStudents[1]?.length && !studentSearch ? sortedStudents[1]?.map(([studentId, student]) => {
-                            return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId}></DisplayRow>)
+                            return (<DisplayRow key={studentId} studentId={studentId} student={student} updateStudent={updateStudent} pageActive={pageActive} adjustMenuRef={adjustMenuRef} setAdjustStudentId={setAdjustStudentId} studentTypingData={typingData?.[student.typerID]}></DisplayRow>)
                         }) : ""
                     }
                 </div>
@@ -306,6 +360,8 @@ function Display() {
                 student={students[adjustStudentId]}
                 deleteStudent={deleteStudent}
                 changeSchedule={changeSchedule}
+                typingData={typingData}
+                changeTyperID={changeTyperID}
             />
         </div>
     )
