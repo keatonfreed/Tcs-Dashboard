@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from 'src/firebase'
 import AdjustMenu from 'src/components/AdjustMenu'
@@ -67,7 +67,7 @@ function Display() {
         return bestTest
     }
 
-    const fetchTyping = async () => {
+    const fetchTyping = useCallback(async () => {
         console.log("fetching typing")
         await fetch("https://tcs-typer.netlify.app/api/users")
             .then(resp => resp.json())
@@ -88,9 +88,9 @@ function Display() {
                 console.log("Error fetching typing data:", error);
             });
 
-    }
+    }, []);
 
-    const fetchStudents = async () => {
+    const fetchStudents = useCallback(async () => {
         setUpdating(true)
         console.log("fetching", db)
         const docRef = doc(db, "Schools", SchoolName);
@@ -115,7 +115,7 @@ function Display() {
                 setUpdating(false)
             });
 
-    }
+    }, []);
     const updateStudents = async () => {
         setUpdating(true)
         const newLog = { ...globalLog }
@@ -169,7 +169,7 @@ function Display() {
     useEffect(() => {
         fetchStudents();
         fetchTyping();
-    }, [])
+    }, [fetchStudents, fetchTyping])
 
 
     const [sortMethod, setSortMethod] = useState(false)
