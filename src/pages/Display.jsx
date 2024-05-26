@@ -73,13 +73,31 @@ function Display() {
             .then(resp => resp.json())
             .then((typingResp) => {
                 if (typingResp && typingResp.length) {
-                    let newData = typingResp.reduce((acc, { id, ...rest }) => {
-                        let bestTest = filterBestTest(rest?.["tests"])
-                        acc[id] = { ...rest, DASH_BestTest: bestTest };
+                    const entriesWithBestTest = typingResp.map(({ id, ...rest }) => {
+                        const bestTest = filterBestTest(rest?.tests);
+                        return { id, ...rest, DASH_BestTest: bestTest };
+                    });
+
+                    // Step 2: Sort the array based on the best test's wpm
+                    entriesWithBestTest.sort((a, b) => {
+                        const wpmA = a.DASH_BestTest?.wpm ?? -Infinity;
+                        const wpmB = b.DASH_BestTest?.wpm ?? -Infinity;
+                        return wpmB - wpmA;
+                    });
+
+                    // Step 3: Add DASH_RankIndex to each entry based on the sorted order
+                    entriesWithBestTest.forEach((entry, index) => {
+                        entry.DASH_RankIndex = index + 1;
+                    });
+
+                    // Step 4: Convert the sorted array back into an object
+                    const sortedNewData = entriesWithBestTest.reduce((acc, entry) => {
+                        acc[entry.id] = entry;
                         return acc;
                     }, {});
-                    console.dir(newData)
-                    setTypingData(newData)
+
+                    console.dir(sortedNewData);
+                    setTypingData(sortedNewData);
                 } else {
                     console.error("No typing data found:", typingResp);
                 }
@@ -203,15 +221,11 @@ function Display() {
                 })
             } else if (sortMethod === "TYPING") {
                 return list.sort((a, b) => {
+                    const rankA = typingData[a[1].typerID]?.["DASH_BestTest"]?.wpm ?? -Infinity;
+                    const rankB = typingData[b[1].typerID]?.["DASH_BestTest"]?.wpm ?? -Infinity;
 
-                    const rankA = typingData[a[1].typerID]?.["DASH_BestTest"];
-                    const rankB = typingData[b[1].typerID]?.["DASH_BestTest"];
-
-                    if (!rankA) return 1;
-                    if (!rankB) return -1;
-
-                    return rankB - rankA; // Alphabetical comparison
-                })
+                    return rankB - rankA;
+                });
             } else {
                 return list.sort((a, b) => {
                     const nameA = a[1].name;
