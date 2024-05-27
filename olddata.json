@@ -1,0 +1,1335 @@
+{
+    "11568": {
+        "name": "Irene De Avila",
+        "schedule": "Saturday",
+        "tokens": 36,
+        "history": {
+            "1716670806006": 36
+        },
+        "prev": "",
+        "wanted": ""
+    },
+    "13195": {
+        "name": "Noah Levine",
+        "prev": "Phoenix Suns plate",
+        "wanted": "",
+        "history": {
+            "1716663676111": 21
+        },
+        "schedule": "Saturday",
+        "tokens": 21
+    },
+    "22296": {
+        "name": "Benjamin Luo",
+        "history": {
+            "1716664328163": 4
+        },
+        "wanted": "",
+        "prev": "Minecraft Sword",
+        "tokens": 4,
+        "schedule": "Saturday"
+    },
+    "26755": {
+        "name": "Jayden Tam",
+        "wanted": "",
+        "tokens": 22,
+        "prev": "",
+        "history": {},
+        "schedule": "Saturday"
+    },
+    "28078": {
+        "tokens": 2,
+        "wanted": "",
+        "name": "Alex McKay",
+        "schedule": "Saturday",
+        "history": {},
+        "prev": "Michael Jordan"
+    },
+    "31402": {
+        "name": "Malia Beard",
+        "wanted": "",
+        "schedule": "Saturday",
+        "history": {},
+        "tokens": "0",
+        "prev": "sword"
+    },
+    "39513": {
+        "tokens": 9,
+        "wanted": "darth vader",
+        "schedule": "Saturday",
+        "name": "Max Sergeev",
+        "prev": "",
+        "history": {}
+    },
+    "48093": {
+        "wanted": "",
+        "history": {
+            "1716671120260": 22
+        },
+        "prev": "Squishy Coin",
+        "tokens": 22,
+        "name": "Anna Lee",
+        "schedule": [
+            "Saturday",
+            "Tuesday"
+        ]
+    },
+    "56812": {
+        "tokens": 32,
+        "name": "Kennedy Chan",
+        "history": {},
+        "wanted": "",
+        "schedule": "Saturday",
+        "prev": ""
+    },
+    "60149": {
+        "tokens": 7,
+        "schedule": "Saturday",
+        "history": {},
+        "wanted": "",
+        "prev": "",
+        "name": "Danny Angius"
+    },
+    "67831": {
+        "schedule": "Saturday",
+        "wanted": "",
+        "history": {
+            "1716656511708": 46
+        },
+        "prev": "",
+        "tokens": 46,
+        "name": "Ryan Juntorn"
+    },
+    "68844": {
+        "wanted": "",
+        "tokens": 23,
+        "prev": "",
+        "name": "Aaron Tam",
+        "history": {
+            "1716663744227": 23
+        },
+        "schedule": "Saturday"
+    },
+    "71400": {
+        "name": "Robin Juntorn",
+        "schedule": "Saturday",
+        "prev": "",
+        "tokens": 46,
+        "wanted": "",
+        "history": {
+            "1716656511708": 46
+        }
+    },
+    "75155": {
+        "wanted": "Kitten/cat (15 tokens) - brown/tan ",
+        "schedule": "Saturday",
+        "history": {},
+        "name": "Laila Raman",
+        "prev": "",
+        "tokens": 8
+    },
+    "81282": {
+        "prev": "",
+        "wanted": "",
+        "schedule": "Saturday",
+        "name": "Jonathan Lee",
+        "history": {
+            "1716667339704": 66
+        },
+        "tokens": 66
+    },
+    "82085": {
+        "wanted": "",
+        "tokens": 9,
+        "history": {
+            "1716667454719": 9
+        },
+        "name": "Lincoln Nash",
+        "schedule": "Saturday",
+        "prev": "titan speakerman?"
+    },
+    "84772": {
+        "history": {
+            "1716656383740": 18
+        },
+        "tokens": 18,
+        "schedule": "Saturday",
+        "prev": "",
+        "name": "Xavier Esquivel",
+        "wanted": ""
+    },
+    "88181": {
+        "prev": "",
+        "tokens": 56,
+        "wanted": "",
+        "name": "Sam Lee",
+        "schedule": "Saturday",
+        "history": {
+            "1716667431253": 56
+        }
+    },
+    "91297": {
+        "name": "Maddy Peacock",
+        "history": {},
+        "prev": "Dog, Unicorn",
+        "schedule": "Saturday",
+        "wanted": "",
+        "tokens": "0"
+    },
+    "91569": {
+        "schedule": [
+            "Saturday",
+            "Wednesday"
+        ],
+        "tokens": 15,
+        "history": {
+            "1716420673643": 15
+        },
+        "wanted": "Panda ",
+        "name": "Chloe Albayaty",
+        "prev": ""
+    },
+    "91769": {
+        "history": {
+            "1716663693878": 35
+        },
+        "tokens": 35,
+        "prev": "",
+        "name": "Kaia Tam",
+        "schedule": "Saturday",
+        "wanted": ""
+    },
+    "97198": {
+        "prev": "",
+        "tokens": 56,
+        "name": "Alex Lee",
+        "wanted": "",
+        "schedule": "Saturday",
+        "history": {
+            "1716667339704": 56
+        }
+    },
+    "8552050701896938": {
+        "prev": "turtle",
+        "history": {},
+        "tokens": "",
+        "wanted": "",
+        "schedule": [
+            "Thursday",
+            "Tuesday"
+        ],
+        "name": "Drew Javey"
+    },
+    "013268447714108": {
+        "history": {
+            "1716248113463": "0"
+        },
+        "tokens": "0",
+        "name": "Brady Long",
+        "schedule": "Monday",
+        "wanted": "",
+        "prev": ""
+    },
+    "396083375330652": {
+        "name": "Kingston Donovan",
+        "schedule": "Tuesday",
+        "prev": "",
+        "tokens": 25,
+        "history": {
+            "1716337832367": 25
+        },
+        "wanted": ""
+    },
+    "851808191689821": {
+        "tokens": 41,
+        "history": {
+            "1716517915483": 41
+        },
+        "prev": "",
+        "name": "Sahana Shah",
+        "wanted": "",
+        "schedule": "Thursday"
+    },
+    "841821751401442": {
+        "wanted": "",
+        "prev": "Big red panda (20-30 tokens)",
+        "history": {},
+        "tokens": "0",
+        "schedule": [
+            "Friday"
+        ],
+        "name": "Ethan Martin"
+    },
+    "855220562766234": {
+        "wanted": "(white) Wants a unicorn about the size of the large Stitch on the front desk (15 tokens)",
+        "schedule": "Tuesday",
+        "prev": "",
+        "name": "Juni Kwon",
+        "tokens": 35,
+        "history": {
+            "1716334316784": 35
+        }
+    },
+    "526831253909384": {
+        "schedule": "Monday",
+        "tokens": 0,
+        "name": "Ben Koren",
+        "wanted": "",
+        "history": {},
+        "prev": "Lizard"
+    },
+    "856205777072274": {
+        "prev": "",
+        "tokens": 12,
+        "wanted": "",
+        "history": {
+            "1716597562217": 12
+        },
+        "schedule": "Thursday",
+        "name": "Sloane Levey"
+    },
+    "288988619254247": {
+        "wanted": "",
+        "history": {},
+        "name": "Nick Kurochka",
+        "schedule": "Wednesday",
+        "prev": "",
+        "tokens": 0
+    },
+    "6177401945057577": {
+        "wanted": "",
+        "tokens": 86,
+        "prev": "",
+        "schedule": [
+            "Monday",
+            "Friday"
+        ],
+        "name": "Nicklaus Choi",
+        "history": {
+            "1716251526684": 86
+        }
+    },
+    "774337252320841": {
+        "schedule": [
+            "Friday"
+        ],
+        "wanted": "",
+        "tokens": 22,
+        "prev": "",
+        "history": {},
+        "name": "Henry Li"
+    },
+    "863709033447018": {
+        "prev": "blue lochness 3d print",
+        "wanted": "",
+        "tokens": 14,
+        "schedule": "Thursday",
+        "history": {
+            "1716507122163": 14
+        },
+        "name": "Jaxon Rosario"
+    },
+    "719003563955984": {
+        "tokens": 18,
+        "history": {
+            "1716337888917": 18
+        },
+        "schedule": [
+            "Tuesday"
+        ],
+        "name": "Alexander Huffaker",
+        "wanted": "",
+        "prev": "Tears of the Kingdom Lynel (https://www.thingiverse.com/thing:6446574) 10-15 tokens?"
+    },
+    "7323479827818355": {
+        "name": "Jadon Hall",
+        "history": {},
+        "wanted": "",
+        "tokens": 2,
+        "prev": "",
+        "schedule": [
+            "Friday"
+        ]
+    },
+    "956815825486628": {
+        "name": "",
+        "history": {},
+        "schedule": [],
+        "wanted": "",
+        "tokens": 0,
+        "prev": ""
+    },
+    "807618704233606": {
+        "tokens": "01",
+        "history": {},
+        "prev": "Cartoony looking rocket ship - dark blue (15 tokens)",
+        "wanted": "",
+        "schedule": [
+            "Friday"
+        ],
+        "name": "Theo Wight"
+    },
+    "3545504004857793": {
+        "history": {},
+        "tokens": 0,
+        "schedule": [],
+        "name": "",
+        "wanted": "",
+        "prev": ""
+    },
+    "33830504995658": {
+        "prev": "",
+        "history": {},
+        "schedule": "Tuesday",
+        "wanted": "",
+        "name": "Henri Patterson",
+        "tokens": 10
+    },
+    "38736199609887834": {
+        "schedule": "Monday",
+        "prev": "",
+        "name": "Zara Yoon",
+        "wanted": "",
+        "history": {
+            "1716248113463": "0"
+        },
+        "tokens": "0"
+    },
+    "494182034988766": {
+        "history": {},
+        "wanted": "",
+        "tokens": 23,
+        "schedule": "Wednesday",
+        "prev": "",
+        "name": "Anton Datsyuk"
+    },
+    "99306031991811": {
+        "schedule": [
+            "Saturday"
+        ],
+        "name": "Hadrian Bustamante",
+        "history": {
+            "1716593565930": 4
+        },
+        "wanted": "Stormtrooper Helmet (40 tokens?)",
+        "tokens": 4,
+        "prev": ""
+    },
+    "2662306944807966": {
+        "wanted": " ",
+        "prev": "cube",
+        "history": {},
+        "name": "Nolan Johnston",
+        "tokens": 1,
+        "schedule": "Thursday"
+    },
+    "06889": {
+        "prev": "",
+        "name": "John Turker",
+        "tokens": 33,
+        "schedule": "Saturday",
+        "history": {
+            "1716667392621": 33
+        },
+        "wanted": ""
+    },
+    "4167216159592844": {
+        "schedule": [
+            "Saturday"
+        ],
+        "history": {
+            "1716663567511": 10
+        },
+        "prev": "",
+        "name": "Khaled Alarkan",
+        "tokens": 10,
+        "wanted": ""
+    },
+    "079221615274232": {
+        "prev": "",
+        "name": "Alex Sevastopoulos",
+        "history": {},
+        "schedule": "Tuesday",
+        "tokens": 1,
+        "wanted": ""
+    },
+    "534465268587369": {
+        "history": {},
+        "schedule": "Wednesday",
+        "tokens": 0,
+        "name": "Max Roy",
+        "prev": "",
+        "wanted": ""
+    },
+    "08611060607153886": {
+        "schedule": [
+            "Tuesday"
+        ],
+        "tokens": 24,
+        "wanted": "Charmander on the bookshelf",
+        "history": {
+            "1716334299385": 24,
+            "1716334270621": 23
+        },
+        "prev": "",
+        "name": "Finn Mayor"
+    },
+    "175072075314432": {
+        "history": {},
+        "wanted": "",
+        "prev": "",
+        "name": "Nathan Wong",
+        "tokens": "0",
+        "schedule": "Thursday"
+    },
+    "863081942024972": {
+        "schedule": "Wednesday",
+        "tokens": 27,
+        "prev": "",
+        "wanted": "Lightsaber (for which jedi/color?)",
+        "history": {},
+        "name": "Amelia Ortiz"
+    },
+    "524293612791373": {
+        "schedule": "Thursday",
+        "prev": "",
+        "tokens": 0,
+        "history": {},
+        "name": "Dominic Jiovannetti",
+        "wanted": ""
+    },
+    "744585755571035": {
+        "schedule": [
+            "Wednesday"
+        ],
+        "prev": "",
+        "name": "Max Lachmann",
+        "wanted": "penguin worth 25 (vader size)",
+        "tokens": 25,
+        "history": {
+            "1716424363462": 25
+        }
+    },
+    "186973008348765": {
+        "tokens": 24,
+        "wanted": "",
+        "name": "Liam Meek",
+        "history": {
+            "1716417134854": 24
+        },
+        "schedule": "Wednesday",
+        "prev": ""
+    },
+    "535822323704866": {
+        "prev": "",
+        "schedule": [
+            "Tuesday"
+        ],
+        "tokens": 19,
+        "name": "Mason Perez",
+        "history": {
+            "1716255018605": 19
+        },
+        "wanted": ""
+    },
+    "53279101443424": {
+        "prev": "",
+        "history": {
+            "1716427877515": 4
+        },
+        "wanted": "",
+        "name": "Silas Jai",
+        "tokens": 4,
+        "schedule": [
+            "Wednesday"
+        ]
+    },
+    "534983570806811": {
+        "tokens": 49,
+        "prev": "",
+        "history": {
+            "1716604184539": 49
+        },
+        "name": "Ethan Dunsford",
+        "wanted": "",
+        "schedule": [
+            "Friday"
+        ]
+    },
+    "603703185223295": {
+        "name": "Eli Barakat",
+        "prev": "Black X-Wing from Star Wars on front desk (15 tokens), Small fox on a log on front desk in the blue/purple filament (5 tokens)",
+        "tokens": 17,
+        "history": {
+            "1716597374751": 17
+        },
+        "wanted": "",
+        "schedule": [
+            "Friday"
+        ]
+    },
+    "43014089289432": {
+        "tokens": "0",
+        "prev": "Taylor swift album print",
+        "schedule": "Wednesday",
+        "wanted": "",
+        "name": "Veranika Vaskobovich",
+        "history": {}
+    },
+    "89621560120617": {
+        "tokens": 21,
+        "schedule": [
+            "Monday"
+        ],
+        "name": "Ava Poorata",
+        "wanted": "",
+        "history": {
+            "1716258726920": 21
+        },
+        "prev": "Small Stitch in light blue filament (5 tokens), Tiny baby Yoda in green (5 tokens)"
+    },
+    "9297464757378484": {
+        "history": {},
+        "prev": "",
+        "tokens": 10,
+        "schedule": [
+            "Wednesday"
+        ],
+        "wanted": "",
+        "name": "Zoya Lebherz"
+    },
+    "041740928873653": {
+        "tokens": 19,
+        "name": "Davis Prater",
+        "prev": "",
+        "history": {
+            "1716420736912": 19
+        },
+        "wanted": "chicken",
+        "schedule": [
+            "Wednesday"
+        ]
+    },
+    "5341305125936695": {
+        "wanted": "",
+        "tokens": 36,
+        "history": {
+            "1716417048169": 36
+        },
+        "schedule": "Wednesday",
+        "name": "Yesim Altay",
+        "prev": ""
+    },
+    "9050619289015538": {
+        "tokens": 0,
+        "schedule": "Wednesday",
+        "wanted": "",
+        "prev": "",
+        "history": {},
+        "name": "Ronan Ziemer"
+    },
+    "758221590200279": {
+        "schedule": "Thursday",
+        "wanted": "",
+        "prev": "",
+        "name": "Ashton Hamlin",
+        "history": {},
+        "tokens": 103
+    },
+    "020343388431953": {
+        "prev": "Got the green Coder School print on the front desk (10 tokens)",
+        "wanted": "",
+        "schedule": "Tuesday",
+        "history": {
+            "1716345026472": 27
+        },
+        "name": "Lorenzo Paglialunga",
+        "tokens": 27
+    },
+    "6597535913180474": {
+        "prev": "",
+        "name": "Logan Mandell",
+        "wanted": "Gigantic charizard orange (60-70 tokens)",
+        "tokens": 34,
+        "schedule": [
+            "Tuesday"
+        ],
+        "history": {
+            "1716663665477": 34
+        }
+    },
+    "5321224760114076": {
+        "schedule": [
+            "Monday"
+        ],
+        "prev": "Exchanged 5 tokens for the small grogu on the front desk",
+        "name": "Logan Walvick",
+        "history": {},
+        "wanted": "Tiny baby dragon in silver/black (5 tokens)",
+        "tokens": 1
+    },
+    "2079220582976355": {
+        "schedule": "Wednesday",
+        "wanted": "",
+        "name": "Mayowa Akinsola",
+        "prev": "",
+        "tokens": 21,
+        "history": {}
+    },
+    "990751374888609": {
+        "tokens": 28,
+        "name": "Nicolas Flores",
+        "wanted": "",
+        "prev": "",
+        "schedule": "Monday",
+        "history": {}
+    },
+    "312508175245827": {
+        "schedule": [
+            "Wednesday"
+        ],
+        "tokens": 15,
+        "history": {
+            "1716424626229": 15,
+            "1716420661311": 12
+        },
+        "wanted": "Panda ",
+        "name": "Ava Albayaty",
+        "prev": ""
+    },
+    "6700140171346196": {
+        "wanted": "",
+        "history": {},
+        "name": "",
+        "prev": "",
+        "schedule": [],
+        "tokens": 0
+    },
+    "959864641718409": {
+        "wanted": " ",
+        "schedule": [
+            "Tuesday"
+        ],
+        "tokens": 10,
+        "prev": "2 red dragons",
+        "history": {
+            "1716341546420": 10
+        },
+        "name": "Harrison Chin"
+    },
+    "25843819637091": {
+        "schedule": "Thursday",
+        "history": {},
+        "name": "Liam Freeman",
+        "tokens": 8,
+        "wanted": "",
+        "prev": "batman"
+    },
+    "75426743303024": {
+        "prev": "",
+        "name": "",
+        "wanted": "",
+        "schedule": [],
+        "tokens": 0,
+        "history": {}
+    },
+    "588926012006857": {
+        "tokens": 0,
+        "history": {},
+        "prev": "",
+        "schedule": "Tuesday",
+        "name": "Myles Dotson",
+        "wanted": ""
+    },
+    "7587467932321998": {
+        "tokens": 12,
+        "name": "Lucas Lee",
+        "wanted": "",
+        "schedule": "Saturday",
+        "prev": "lebron (20 tokens)",
+        "history": {}
+    },
+    "19970733880595448": {
+        "name": "Hayes Huffaker",
+        "history": {},
+        "tokens": 15,
+        "schedule": [
+            "Tuesday"
+        ],
+        "prev": "",
+        "wanted": "Tinkercad print"
+    },
+    "01515913678405": {
+        "tokens": "0",
+        "name": "Zlata Tkachuk",
+        "schedule": [
+            "Wednesday"
+        ],
+        "wanted": "",
+        "history": {},
+        "prev": "Small 3D printed Stitch (5 tokens)"
+    },
+    "143291395658744": {
+        "name": "Samuel Chu",
+        "schedule": "Tuesday",
+        "wanted": "Wants a black knight chess piece from the set on the front desk (5 tokens)",
+        "prev": "",
+        "tokens": 11,
+        "history": {
+            "1716337851883": 11
+        }
+    },
+    "7341800576206854": {
+        "schedule": "Tuesday",
+        "tokens": "0",
+        "prev": "Exchanged 5 tokens for the black Roblox logo 3D print on the front desk.",
+        "wanted": "mini superman bust",
+        "name": "Mason Svenson",
+        "history": {}
+    },
+    "9156272025450138": {
+        "history": {
+            "1716601257599": 0,
+            "1716600583389": 9
+        },
+        "tokens": 0,
+        "schedule": "Tuesday",
+        "prev": "Rose, Red melted lollipop (grey stick, red candy) 5 tokens",
+        "name": "Raelyn Bass",
+        "wanted": ""
+    },
+    "047790540014353": {
+        "history": {
+            "1716427838930": 31
+        },
+        "tokens": 31,
+        "wanted": "",
+        "prev": "Lightsaber",
+        "name": "Connor Huang",
+        "schedule": "Wednesday"
+    },
+    "13859990028842": {
+        "name": "Leah Nichols",
+        "history": {},
+        "prev": "",
+        "wanted": "",
+        "tokens": 6,
+        "schedule": "Wednesday"
+    },
+    "01943": {
+        "name": "Abigail De Avila",
+        "tokens": 37,
+        "schedule": "Saturday",
+        "prev": "",
+        "history": {
+            "1716670842822": 37
+        },
+        "wanted": ""
+    },
+    "7538552256533584": {
+        "name": "Ellie Hou",
+        "prev": "Unicorn on front desk (5 tokens)/Stitch, tiny black dragon on the front desk (5 tokens)",
+        "schedule": [
+            "Tuesday"
+        ],
+        "tokens": 5,
+        "history": {
+            "1716663649976": 5
+        },
+        "wanted": ""
+    },
+    "24673113826209292": {
+        "history": {
+            "1716431607467": 33
+        },
+        "wanted": "Lightsaber (anakin/blue)",
+        "prev": "",
+        "name": "Blake Wendling",
+        "schedule": "Wednesday",
+        "tokens": 33
+    },
+    "9510982170943192": {
+        "schedule": [
+            "Thursday"
+        ],
+        "name": "Callum Reilly",
+        "wanted": "",
+        "history": {},
+        "prev": "",
+        "tokens": 7
+    },
+    "376044646092982": {
+        "history": {
+            "1716597576807": 2
+        },
+        "name": "Ezra Levey",
+        "tokens": 2,
+        "wanted": "",
+        "schedule": "Thursday",
+        "prev": "Small white panda on the front desk (5 tokens)"
+    },
+    "7893657775282348": {
+        "tokens": 28,
+        "schedule": "Tuesday",
+        "wanted": "",
+        "name": "Hao Donovan",
+        "history": {
+            "1716337832367": 28
+        },
+        "prev": ""
+    },
+    "8505484497493598": {
+        "tokens": 0,
+        "history": {},
+        "schedule": [],
+        "prev": "",
+        "wanted": "",
+        "name": ""
+    },
+    "3798222997133003": {
+        "prev": "Golden spiral pencil holder ",
+        "tokens": 13,
+        "wanted": "Darth Vader Bust (25 for front desk size) + White lightsaber",
+        "name": "Jeremiah Hembrador",
+        "history": {
+            "1716420703477": 13
+        },
+        "schedule": [
+            "Wednesday",
+            "Thursday"
+        ]
+    },
+    "280150484265732": {
+        "name": "Jayden Wu",
+        "wanted": "",
+        "tokens": 30,
+        "schedule": "Monday",
+        "history": {
+            "1716247772233": 31,
+            "1716248091048": 30,
+            "1716247647463": 30
+        },
+        "prev": ""
+    },
+    "402219154826242": {
+        "history": {},
+        "tokens": 0,
+        "name": "",
+        "schedule": [],
+        "prev": "",
+        "wanted": ""
+    },
+    "0258525310105893": {
+        "history": {},
+        "prev": "",
+        "tokens": 15,
+        "wanted": "",
+        "schedule": [
+            "Friday",
+            "Wednesday"
+        ],
+        "name": "Grant Bernard"
+    },
+    "44374339892282": {
+        "name": "Teddy Parker",
+        "prev": "Charizard (35)",
+        "tokens": 3,
+        "schedule": "Monday",
+        "history": {},
+        "wanted": ""
+    },
+    "55849990584193376": {
+        "history": {},
+        "tokens": 0,
+        "schedule": [],
+        "name": "",
+        "prev": "",
+        "wanted": ""
+    },
+    "8328435670768415": {
+        "name": "Kian Puri",
+        "tokens": 22,
+        "prev": "",
+        "schedule": "Thursday",
+        "wanted": "",
+        "history": {
+            "1716506438567": 22
+        }
+    },
+    "6716953859034485": {
+        "wanted": "",
+        "history": {
+            "1716248113464": "0"
+        },
+        "tokens": "0",
+        "schedule": "Monday",
+        "prev": "",
+        "name": "Ceres Sutton-Gee"
+    },
+    "282633234095885": {
+        "name": "Ethan Cornwell",
+        "history": {
+            "1716420768809": 2
+        },
+        "prev": "",
+        "wanted": "",
+        "schedule": "Thursday",
+        "tokens": 2
+    },
+    "1963496873638002": {
+        "history": {},
+        "name": "Tyler Shores",
+        "tokens": "0",
+        "prev": "",
+        "schedule": "Thursday",
+        "wanted": ""
+    },
+    "846152405287166": {
+        "history": {
+            "1716345078433": 49
+        },
+        "schedule": "Tuesday",
+        "wanted": "",
+        "prev": "",
+        "name": "Coltrane Schaible",
+        "tokens": 49
+    },
+    "721216855386932": {
+        "wanted": "",
+        "prev": "",
+        "name": "Josh Albini",
+        "tokens": 4,
+        "schedule": [
+            "Saturday"
+        ],
+        "history": {}
+    },
+    "643815651244867": {
+        "history": {
+            "1716517962366": 28
+        },
+        "wanted": "",
+        "schedule": "Thursday",
+        "tokens": 28,
+        "prev": "",
+        "name": "Anand Jain"
+    },
+    "414469648892635": {
+        "name": "Bailey Meek",
+        "schedule": "Wednesday",
+        "history": {},
+        "wanted": "",
+        "prev": "Stitch",
+        "tokens": "0"
+    },
+    "987823157286412": {
+        "wanted": "",
+        "tokens": 3,
+        "history": {},
+        "prev": "",
+        "schedule": "Thursday",
+        "name": "Sloane Peressini"
+    },
+    "183911473980872": {
+        "tokens": 6,
+        "wanted": "",
+        "name": "Noelle Meek",
+        "prev": "",
+        "history": {},
+        "schedule": "Wednesday"
+    },
+    "4840671304430413": {
+        "name": "Leonardo Giuntini",
+        "prev": "harry potter wand ",
+        "history": {
+            "1716517933929": 16
+        },
+        "wanted": "",
+        "schedule": [
+            "Thursday",
+            "Wednesday"
+        ],
+        "tokens": 16
+    },
+    "702211773555917": {
+        "history": {
+            "1716251500738": 26
+        },
+        "tokens": 26,
+        "wanted": "",
+        "schedule": "Monday",
+        "name": "Alessia Copping",
+        "prev": ""
+    },
+    "50985939998126284": {
+        "prev": "",
+        "schedule": "Tuesday",
+        "tokens": 35,
+        "name": "Romi Kwon",
+        "wanted": "(white) Wants a unicorn about the size of the large Stitch on the front desk (15 tokens)",
+        "history": {
+            "1716334327520": 35
+        }
+    },
+    "220738832374934": {
+        "wanted": "",
+        "schedule": "Thursday",
+        "history": {},
+        "prev": "",
+        "name": "Jack Bacon",
+        "tokens": 4
+    },
+    "312060607241565": {
+        "schedule": "Thursday",
+        "name": "Dilan Shah",
+        "wanted": "",
+        "tokens": 29,
+        "history": {
+            "1716517915483": 29
+        },
+        "prev": ""
+    },
+    "312910813342635": {
+        "schedule": "Tuesday",
+        "history": {},
+        "name": "Mani Talbot",
+        "prev": "",
+        "tokens": 0,
+        "wanted": ""
+    },
+    "810659436990791": {
+        "name": "Kamran Radaza",
+        "history": {},
+        "tokens": 11,
+        "schedule": "Thursday",
+        "wanted": "",
+        "prev": ""
+    },
+    "903514030100856": {
+        "history": {},
+        "prev": "",
+        "name": "",
+        "wanted": "",
+        "tokens": 0,
+        "schedule": []
+    },
+    "828497779293314": {
+        "tokens": 16,
+        "name": "Alexander Yoon",
+        "prev": "",
+        "schedule": [
+            "Thursday"
+        ],
+        "wanted": "",
+        "history": {
+            "1716507122164": 16
+        }
+    },
+    "6494172953476025": {
+        "schedule": "Thursday",
+        "tokens": 8,
+        "wanted": "",
+        "prev": "",
+        "name": "Rowan Neuner",
+        "history": {}
+    },
+    "637585072692323": {
+        "prev": "Small black cat (5 tokens), Articulated cat on front desk (10 tokens)",
+        "history": {},
+        "wanted": "",
+        "name": "Ari Barakat",
+        "schedule": [
+            "Friday"
+        ],
+        "tokens": "0"
+    },
+    "38908002983189": {
+        "wanted": "",
+        "name": "Jude Volk",
+        "history": {},
+        "schedule": "Thursday",
+        "tokens": 7,
+        "prev": ""
+    },
+    "103854054300528": {
+        "name": "",
+        "history": {},
+        "wanted": "",
+        "tokens": 0,
+        "schedule": [],
+        "prev": ""
+    },
+    "577548918771719": {
+        "wanted": "",
+        "tokens": 22,
+        "name": "Abaan Vazirinejad",
+        "schedule": "Thursday",
+        "prev": "",
+        "history": {
+            "1716600735628": 22
+        }
+    },
+    "225235658922239": {
+        "history": {
+            "1716334411971": 4
+        },
+        "name": "Jake Hopkins",
+        "schedule": [
+            "Tuesday"
+        ],
+        "wanted": "",
+        "prev": "",
+        "tokens": 4
+    },
+    "425750174620456": {
+        "prev": "Traded in tokens for white articulated gecko and small missile on the front desk; 5 tokens each.",
+        "tokens": 15,
+        "name": "Owen Quady-Lee",
+        "wanted": "",
+        "history": {},
+        "schedule": "Tuesday"
+    },
+    "022352544955889": {
+        "name": "Eli",
+        "schedule": "Monday",
+        "history": {},
+        "wanted": "",
+        "prev": "",
+        "tokens": 0
+    },
+    "566619248597711": {
+        "tokens": 0,
+        "name": "",
+        "history": {},
+        "wanted": "",
+        "prev": "",
+        "schedule": []
+    },
+    "131447523627255": {
+        "schedule": "Thursday",
+        "name": "Alexander Gawronek",
+        "wanted": "",
+        "history": {},
+        "tokens": 31,
+        "prev": ""
+    },
+    "742415517634877": {
+        "prev": "",
+        "tokens": 54,
+        "history": {
+            "1716341443828": 54
+        },
+        "wanted": "Wants a lightsaber (thinking on model and color)",
+        "name": "Max Morrison",
+        "schedule": "Tuesday"
+    },
+    "38308933667928535": {
+        "prev": "",
+        "schedule": "Wednesday",
+        "tokens": 54,
+        "wanted": "Dragon Slayer (sword? logo? more detail please)",
+        "name": "Jonathan Butler",
+        "history": {
+            "1716431510970": 54
+        }
+    },
+    "176622295018511": {
+        "history": {
+            "1716507122163": 14,
+            "1716337866584": 13
+        },
+        "tokens": 14,
+        "prev": "among us, Eiffel Tower, Elephant ",
+        "wanted": "",
+        "name": "Kyle Shapiro",
+        "schedule": "Thursday"
+    },
+    "085667184262755": {
+        "prev": "",
+        "wanted": "",
+        "name": "",
+        "schedule": [],
+        "history": {},
+        "tokens": 0
+    },
+    "4665222274607443": {
+        "schedule": [
+            "Tuesday"
+        ],
+        "tokens": 6,
+        "wanted": "Gold ferrari(?)",
+        "prev": "",
+        "history": {
+            "1716334270621": 7,
+            "1716330750283": 3,
+            "1716334282587": 6
+        },
+        "name": "Dominic Giovannetti"
+    },
+    "6255072468919018": {
+        "history": {
+            "1716345060018": 24
+        },
+        "name": "Juwon Lee",
+        "wanted": "Ghast Minecraft (white) (20 tokens)",
+        "prev": "",
+        "schedule": "Tuesday",
+        "tokens": 24
+    },
+    "363706257565916": {
+        "name": "Elliott Cohen-Mann",
+        "tokens": 8,
+        "history": {
+            "1716514352634": 8
+        },
+        "wanted": "",
+        "schedule": "Thursday",
+        "prev": ""
+    },
+    "969321533554856": {
+        "name": "Michael Berezhanskiy",
+        "schedule": "Thursday",
+        "wanted": "",
+        "prev": "coder school 3d print + lotus flower",
+        "tokens": 9,
+        "history": {
+            "1716424401792": 9
+        }
+    },
+    "62611205179559": {
+        "prev": "",
+        "wanted": "Lightsaber  (anything, blue blade)",
+        "history": {
+            "1716416972859": 43
+        },
+        "name": "Erdem Altay",
+        "tokens": 43,
+        "schedule": "Wednesday"
+    },
+    "058047145588839": {
+        "history": {
+            "1716660093002": ""
+        },
+        "wanted": "",
+        "schedule": "Monday",
+        "prev": "toilet",
+        "tokens": "",
+        "name": "Levi Leeds"
+    },
+    "77203324793673": {
+        "prev": "",
+        "schedule": "Thursday",
+        "history": {},
+        "name": "Asher Levey",
+        "tokens": 0,
+        "wanted": ""
+    },
+    "102317939230304": {
+        "name": "",
+        "prev": "",
+        "wanted": "",
+        "tokens": 0,
+        "history": {},
+        "schedule": []
+    }
+}

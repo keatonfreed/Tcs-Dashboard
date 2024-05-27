@@ -49,6 +49,14 @@ function Display() {
 
     const [typingData, setTypingData] = useState({});
 
+    const [adjustStudentId, setAdjustStudentId] = useState();
+    const adjustMenuRef = useRef(null)
+
+    const deleteStudent = () => { updateStudent(adjustStudentId, null) };
+    const changeSchedule = (days) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: days }) };
+    const changeTyperID = useCallback((id, studentId) => { updateStudent(studentId || adjustStudentId, { ...students[studentId || adjustStudentId], typerID: id }) }, [adjustStudentId, students]);
+
+
     const mediumScreen = useMediaQuery({ query: '(max-width: 1200px)' })
     const smallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
@@ -165,9 +173,20 @@ function Display() {
         })
         setStudents(studentsWithHistory)
 
-        newLog[Date.now()] = `Updated Students from Main Page: ${addedCount} Added, ${removedCount} Removed, ${changedCount} Changed`
-        console.log("updating", db, newLog)
-        setGlobalLog(newLog)
+        const MONTH_IN_MS = 30 * 24 * 60 * 60 * 1000;
+        const currentTime = Date.now();
+        newLog[currentTime] = `Updated Students from Main Page: ${addedCount} Added, ${removedCount} Removed, ${changedCount} Changed`;
+
+        // Trim logs older than two months
+        for (const timestamp in newLog) {
+            if (currentTime - timestamp > MONTH_IN_MS) {
+                delete newLog[timestamp];
+            }
+        }
+
+        console.log("updating", db, newLog);
+        setGlobalLog(newLog);
+
         const docRef = doc(db, "Schools", SchoolName);
         await updateDoc(docRef, {
             students: studentsWithHistory,
@@ -183,11 +202,47 @@ function Display() {
             });
     }
 
+    const normalizeName = (name) => name.toLowerCase().replace(/[^a-zA-Z\s]/g, '').trim();
+
+
+    const autoLinkTypers = useCallback(() => {
+        console.log("LINKING student and typing data...")
+        let typingDataList = Object.entries(typingData)
+
+        let linkedCount = 0
+        Object.entries(students).forEach(([studentId, student]) => {
+            if (!student.name) return
+            if (student.typerID) return
+
+            const typerID = typingDataList?.find(
+                ([, studentData]) => normalizeName(student?.name) === normalizeName(studentData.full_name)
+            )?.[0];
+
+            if (typerID) {
+                changeTyperID(typerID, studentId);
+                linkedCount++
+                // console.log("Changing user:", student?.name, typerID)
+            } else {
+                // console.log("User not found:", student?.name)
+            }
+        })
+        console.log("LINKED student and typing data:", linkedCount)
+        setLinkedTypingData(true)
+    }, [changeTyperID, students, typingData])
+
+    const [linkedTypingData, setLinkedTypingData] = useState(false);
 
     useEffect(() => {
         fetchStudents();
         fetchTyping();
-    }, [fetchStudents, fetchTyping])
+    }, [fetchStudents, fetchTyping]);
+
+    useEffect(() => {
+        if (linkedTypingData) return
+        if (Object.keys(students).length > 0 && Object.keys(typingData).length > 0) {
+            autoLinkTypers();
+        }
+    }, [students, typingData, linkedTypingData, autoLinkTypers]);
 
 
     const [sortMethod, setSortMethod] = useState(false)
@@ -309,12 +364,6 @@ function Display() {
     }
 
 
-    const [adjustStudentId, setAdjustStudentId] = useState();
-    const adjustMenuRef = useRef(null)
-
-    const deleteStudent = () => { updateStudent(adjustStudentId, null) };
-    const changeSchedule = (days) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: days }) };
-    const changeTyperID = (id) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], typerID: id }) };
 
     const [imageLoaded, setImageLoaded] = useState(false);
 

@@ -55,7 +55,7 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, typ
                     <button onClick={() => {
                         setTyperSelectManual(false)
                         if (student?.typerID) {
-                            changeTyperID()
+                            changeTyperID(false)
                         } else {
                             const typerID = Object.entries(typingData).find(
                                 ([, studentData]) => normalizeName(student?.name) === normalizeName(studentData.full_name)
@@ -74,11 +74,10 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, typ
                     <h1 className=''>User Name: {typingData[student?.typerID]?.full_name || "None"}</h1>
                     {typerSelectManual && <input type="number" onChange={(e) => {
                         let manualNum = e.target.valueAsNumber
-                        console.log(manualNum)
                         if (manualNum && manualNum > 0) {
                             changeTyperID(manualNum);
                         } else {
-                            changeTyperID();
+                            changeTyperID(false);
                         }
                     }} placeholder='Input ID Manually' className={`mt-4 bg-red-600 text-center rounded-lg p-1`} />}
                 </>}
