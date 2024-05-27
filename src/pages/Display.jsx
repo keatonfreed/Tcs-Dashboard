@@ -63,7 +63,7 @@ function Display() {
     function filterBestTest(tests) {
         let bestTest = null;
         for (const test of tests) {
-            if (test["accuracy"] >= 90) {
+            if (test["accuracy"] >= 90 && !(test["wpm"] >= 200) && !(test["accuracy"] > 100)) {
                 if (bestTest === null || test["wpm"] > bestTest["wpm"]) {
                     bestTest = {
                         wpm: test["wpm"],
