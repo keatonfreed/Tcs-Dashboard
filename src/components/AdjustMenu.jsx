@@ -71,7 +71,9 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, typ
                         }
                     }} className={` adjustSelect ${!student?.typerID ? "adjustSelected" : ""}`}>{student?.typerID ? `Unlink "${student?.name}"` : `Find "${student?.name}"`}</button>
                     <h1 className='mt-4'>User ID: {student?.typerID || "None"}</h1>
-                    <h1 className=''>User Name: {typingData[student?.typerID]?.full_name || "None"}</h1>
+                    <h1 className=''>Name: {typingData[student?.typerID]?.full_name || "None"}</h1>
+                    <h1 className=''>Username: {typingData[student?.typerID]?.username || "None"}</h1>
+                    <h1 className=''>Password: {typingData[student?.typerID]?.password || "None"}</h1>
                     {typerSelectManual && <input type="number" onChange={(e) => {
                         let manualNum = e.target.valueAsNumber
                         if (manualNum && manualNum > 0) {

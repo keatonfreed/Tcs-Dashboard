@@ -235,6 +235,12 @@ function Display() {
     useEffect(() => {
         fetchStudents();
         fetchTyping();
+        const typingFetch = setInterval(() => {
+            fetchTyping();
+        }, 10000)
+        return () => {
+            clearInterval(typingFetch)
+        }
     }, [fetchStudents, fetchTyping]);
 
     useEffect(() => {
