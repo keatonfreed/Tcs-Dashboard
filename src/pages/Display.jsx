@@ -102,7 +102,7 @@ function Display() {
                     // Step 4: Convert the sorted array back into an object
                     const sortedNewData = entriesWithBestTest.reduce((acc, entry) => {
                         acc[entry.id] = entry;
-                        console.log(entry.id)
+                        // console.log(entry.id)
                         return acc;
                     }, {});
 
