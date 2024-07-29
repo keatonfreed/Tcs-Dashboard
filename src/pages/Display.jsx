@@ -54,6 +54,7 @@ function Display() {
 
     const deleteStudent = () => { updateStudent(adjustStudentId, null) };
     const changeSchedule = (days) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], schedule: days }) };
+    const changeHighlight = (val) => { updateStudent(adjustStudentId, { ...students[adjustStudentId], highlight: val }) };
     const changeTyperID = useCallback((id, studentId) => { updateStudent(studentId || adjustStudentId, { ...students[studentId || adjustStudentId], typerID: id }) }, [adjustStudentId, students]);
 
 
@@ -423,6 +424,7 @@ function Display() {
                 student={students[adjustStudentId]}
                 deleteStudent={deleteStudent}
                 changeSchedule={changeSchedule}
+                changeHighlight={changeHighlight}
                 typingData={typingData}
                 changeTyperID={changeTyperID}
             />

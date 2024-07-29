@@ -31,8 +31,8 @@ function DisplayRow({ studentId, student, updateStudent, pageActive, adjustMenuR
     }
     return (
         // <div className={`DisplayRow  min-w-full w-full ${historyOpen ? "rowExpanded" : ""}`}>
-        <div className={`DisplayRow  min-w-full w-full`}>
-            <div className='grid grid-cols-2 sm:grid-cols-5 w-full'>
+        <div className={`DisplayRow  min-w-full w-full ${student?.highlight ? "highlight" : ""}`}>
+            <div className={`grid grid-cols-2 sm:grid-cols-5 w-full `}>
                 <div className='DisplayRowItem'><button onClick={() => { setAdjustStudentId(studentId); adjustMenuRef.current?.showModal() }} className={`adjustMenuButton w-fit lg:w-12 ${pageActive}`}><img draggable="false" src={adjustIcon} alt="edit" /></button><input type='text' defaultValue={student.name} onChange={(e) => { updateStudent(studentId, { ...student, name: e.target.value }) }} /></div>
                 <div className='DisplayRowItem'><button onClick={() => changeTokens(-1)} className={`changeTokenButton ${pageActive}`}><img draggable="false" src={subtractIcon} alt="-" /></button><input className="!min-w-[unset] !w-20 !shadow-none" type="text" inputMode="numeric" pattern="[0-9]*" value={student.tokens.toString()} onChange={(e) => { updateStudent(studentId, { ...student, tokens: Number(e.target.value) || e.target.value }) }} /><button onClick={() => changeTokens(1)} className={`changeTokenButton ${pageActive}`} ><img draggable="false" src={addIcon} alt="-" /></button></div>
                 {!smallScreen && <div className='DisplayRowItem '><p style={{ whiteSpace: "pre-wrap" }}>{student?.typerID ? studentTypingData?.["DASH_BestTest"] ? `Rank #${studentTypingData?.["DASH_RankIndex"]}:   ${studentTypingData?.["DASH_BestTest"]?.["wpm"]}wpm` : "No Tests" : "Not Connected"}</p></div>}

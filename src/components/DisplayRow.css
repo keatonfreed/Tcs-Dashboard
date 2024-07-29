@@ -3,6 +3,10 @@
     transition: border 200ms ease-in-out, height 200ms ease-in-out;
 }
 
+.DisplayRow.highlight {
+    background-color: rgba(150, 255, 150, 0.5);
+}
+
 .DisplayRow.rowExpanded {
     height: calc(50px + 10em);
     /* max-height: min-content; */

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import 'src/components/AdjustMenu.css'
 
-function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, typingData, changeTyperID }) {
+function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, changeHighlight, typingData, changeTyperID }) {
     const [typerSelectOpen, setTyperSelectOpen] = useState(false)
     const [typerSelectManual, setTyperSelectManual] = useState(false)
 
@@ -34,6 +34,12 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, typ
         // adjustMenuRef.current?.close();
     };
 
+    const toggleHighlight = () => {
+        let old = student?.highlight || false
+        changeHighlight(!old);
+        // adjustMenuRef.current?.close();
+    };
+
     const normalizeName = (name) => name.toLowerCase().replace(/[^a-zA-Z\s]/g, '').trim();
 
 
@@ -42,6 +48,8 @@ function AdjustMenu({ adjustMenuRef, student, deleteStudent, changeSchedule, typ
             <div className={`p-8 rounded-xl ${!typerSelectOpen ? "w-80" : "w-auto"} flex flex-col gap-1 bg-accent text-center text-white text-lg`}>
                 <h1 className='font-bold text-3xl underline mb-4 select-none'>{student?.name || "Student"}</h1>
                 {!typerSelectOpen ? <>
+                    <button onClick={() => toggleHighlight()} className={`mb-4 adjustSelect ${student?.highlight ? "adjustSelected" : ""}`}>Highlight</button>
+
                     <button onClick={() => handleEdit("Monday")} className={`adjustSelect ${student?.schedule?.includes("Monday") ? "adjustSelected" : ""}`}>Monday</button>
                     <button onClick={() => handleEdit("Tuesday")} className={`adjustSelect ${student?.schedule?.includes("Tuesday") ? "adjustSelected" : ""}`}>Tuesday</button>
                     <button onClick={() => handleEdit("Wednesday")} className={`adjustSelect ${student?.schedule?.includes("Wednesday") ? "adjustSelected" : ""}`}>Wednesday</button>
