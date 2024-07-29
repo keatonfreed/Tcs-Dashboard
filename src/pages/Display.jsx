@@ -61,30 +61,31 @@ function Display() {
     const mediumScreen = useMediaQuery({ query: '(max-width: 1200px)' })
     const smallScreen = useMediaQuery({ query: '(max-width: 640px)' })
 
-    function filterBestTest(tests) {
-        let bestTest = null;
-        for (const test of tests) {
-            if (test["accuracy"] >= 90 && !(test["wpm"] >= 200) && !(test["accuracy"] > 100)) {
-                if (bestTest === null || test["wpm"] > bestTest["wpm"]) {
-                    bestTest = {
-                        wpm: test["wpm"],
-                        accuracy: test["accuracy"],
-                    };
-                }
-            }
-        }
-        return bestTest
-    }
+    // function filterBestTest(tests) {
+    //     let bestTest = null;
+    //     for (const test of tests) {
+    //         if (test["accuracy"] >= 90 && !(test["wpm"] >= 200) && !(test["accuracy"] > 100)) {
+    //             if (bestTest === null || test["wpm"] > bestTest["wpm"]) {
+    //                 bestTest = {
+    //                     wpm: test["wpm"],
+    //                     accuracy: test["accuracy"],
+    //                 };
+    //             }
+    //         }
+    //     }
+    //     return bestTest
+    // }
 
     const fetchTyping = useCallback(async () => {
         console.log("fetching typing")
-        await fetch("https://tcs-typer.netlify.app/api/users")
+        await fetch("https://tcs-typer.netlify.app/api/leaderboard")
             .then(resp => resp.json())
             .then((typingResp) => {
                 if (typingResp && typingResp.length) {
-                    const entriesWithBestTest = typingResp.map(({ id, ...rest }) => {
-                        const bestTest = filterBestTest(rest?.tests);
-                        return { id, ...rest, DASH_BestTest: bestTest };
+                    const entriesWithBestTest = typingResp.map(({ id, best_test, ...rest }) => {
+                        // const bestTest = filterBestTest(rest?.tests);
+                        // console.log("best:", best_test)
+                        return { id, ...rest, DASH_BestTest: best_test };
                     });
 
                     // Step 2: Sort the array based on the best test's wpm
@@ -102,6 +103,7 @@ function Display() {
                     // Step 4: Convert the sorted array back into an object
                     const sortedNewData = entriesWithBestTest.reduce((acc, entry) => {
                         acc[entry.id] = entry;
+                        // console.log(entry.id)
                         return acc;
                     }, {});
 
@@ -236,6 +238,12 @@ function Display() {
     useEffect(() => {
         fetchStudents();
         fetchTyping();
+        const typingFetch = setInterval(() => {
+            fetchTyping();
+        }, 10000)
+        return () => {
+            clearInterval(typingFetch)
+        }
     }, [fetchStudents, fetchTyping]);
 
     useEffect(() => {
