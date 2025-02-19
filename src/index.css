@@ -24,6 +24,7 @@ body,
   --accent-color: hsl(125 45% 20% / 1);
   /* --dark-background-color: hsl(125 40% 5% / 1); */
   --dark-background-color: #010b00;
+  --tint-background-color: #c4e6ca;
   /* --dark-background-color: white; */
   /* --secondary-color: #59ea00; */
   --secondary-color: hsl(125 65% 25% / 1);

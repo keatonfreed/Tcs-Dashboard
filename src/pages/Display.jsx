@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from 'src/firebase'
 import AdjustMenu from 'src/components/AdjustMenu'
@@ -14,7 +15,7 @@ import searchIcon from "src/content/searchIcon.png"
 import filterIcon from "src/content/filterIcon.png"
 import 'src/pages/Display.css'
 
-const SchoolName = "Walnut Creek"
+// const SchoolName = "Walnut Creek"
 
 function isDeepEqual(obj1, obj2) {
     // Check if both arguments are objects
@@ -38,7 +39,21 @@ function isDeepEqual(obj1, obj2) {
     return true;
 }
 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+}
+
 function Display() {
+    const { schoolId } = useParams();
+    const SchoolName = toTitleCase(schoolId)
+    useEffect(() => {
+        console.log(SchoolName)
+    }, [SchoolName])
+
+    const navigate = useNavigate()
+
+    const [errorMessage, setErrorMessage] = useState("");
+
     const [storedStudents, setStoredStudents] = useState({});
     const [updatedData, setUpdatedData] = useState(false);
     const [students, setStudents] = useState({});
@@ -137,6 +152,8 @@ function Display() {
                     }
                 } else {
                     console.error("No doc found for school:", SchoolName);
+                    setUpdating(false)
+                    setErrorMessage(`School: "${SchoolName}" not found.`)
                 }
             })
             .catch((error) => {
@@ -376,7 +393,7 @@ function Display() {
 
     const [imageLoaded, setImageLoaded] = useState(false);
 
-    if (!imageLoaded) {
+    if (!imageLoaded && !errorMessage) {
         return < Password setImageLoaded={setImageLoaded} />
     }
 
@@ -427,6 +444,7 @@ function Display() {
                 const newStudentId = Math.random().toString().substring(3, 20);
                 updateStudent(newStudentId, { name: "", tokens: 0, wanted: "", prev: "", schedule: [] });
             }}>Add</button>
+
             <AdjustMenu
                 adjustMenuRef={adjustMenuRef}
                 student={students[adjustStudentId]}
@@ -436,6 +454,8 @@ function Display() {
                 typingData={typingData}
                 changeTyperID={changeTyperID}
             />
+            {errorMessage && <div className='fixed z-50 top-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center'><div className='bg-red-500 p-8 rounded-xl flex flex-col gap-8 font-bold text-white text-xl'>{errorMessage}<button onClick={() => { navigate("/") }} className='p-2 py-4 bg-red-400 rounded-md'>Return Home</button></div></div>}
+
         </div>
     )
 }
